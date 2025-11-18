@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="c64746cc-d49b-406d-827a-e39f7bf764e0" name="xusa@MSI 2025-07-27 23:56:01" runUser="MSI\xusa" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2025-07-27T23:56:01.5363057+02:00" queuing="2025-07-27T23:56:01.5363063+02:00" start="2025-07-27T23:56:00.6494028+02:00" finish="2025-07-27T23:56:01.5469086+02:00" />
+  <TestSettings name="default" id="4f3a12d6-830f-4d2d-8fc1-8ede6d0005d2">
+    <Deployment runDeploymentRoot="xusa_MSI_2025-07-27_23_56_01" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="70136bf4-66ab-47c1-b138-26c676bc3648" testId="983773f5-9e39-a8fd-4d24-661bb99e0e84" testName="ejercicio3.test.UnitTest1.CreaTranspuesta_DebeTransponerElementosCorrectamente" computerName="MSI" duration="00:00:00.0091467" startTime="2025-07-27T23:56:01.3978972+02:00" endTime="2025-07-27T23:56:01.3979157+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="70136bf4-66ab-47c1-b138-26c676bc3648" />
+    <UnitTestResult executionId="7610b5de-f0f7-49ec-9fd1-6111dd4e90b7" testId="4addd473-5858-1e93-0c68-641367a3684d" testName="ejercicio3.test.UnitTest1.CreaTranspuesta_DebeCrearArrayConDimensionesCorrectas" computerName="MSI" duration="00:00:00.0002832" startTime="2025-07-27T23:56:01.4018685+02:00" endTime="2025-07-27T23:56:01.4018686+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7610b5de-f0f7-49ec-9fd1-6111dd4e90b7" />
+    <UnitTestResult executionId="e30fe202-012d-4e19-9bd2-740e9b1ddd5d" testId="cc402dc9-8e29-0cc5-2d1b-247017812241" testName="ejercicio3.test.UnitTest1.CreaTranspuesta_ArrayCuadrado_DebeTransponerCorrectamente" computerName="MSI" duration="00:00:00.0003798" startTime="2025-07-27T23:56:01.4019751+02:00" endTime="2025-07-27T23:56:01.4019751+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e30fe202-012d-4e19-9bd2-740e9b1ddd5d" />
+    <UnitTestResult executionId="7f94ab8a-1697-4e9b-a2ab-caeab68bf3ac" testId="8bc71c1a-7a8f-d916-43ea-d4b85ffd066d" testName="ejercicio3.test.UnitTest1.CreaTranspuesta_ArrayCompleto3x5_DebeTransponerCorrectamente" computerName="MSI" duration="00:00:00.0003062" startTime="2025-07-27T23:56:01.4014403+02:00" endTime="2025-07-27T23:56:01.4014404+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7f94ab8a-1697-4e9b-a2ab-caeab68bf3ac" />
+    <UnitTestResult executionId="adb4abe9-2a3e-448a-8d01-2452a6bf9223" testId="3648cdcc-b5ba-9ae6-9f44-4ed311793c12" testName="ejercicio3.test.UnitTest1.MuestraArray_NoDebeGenerarExcepcion" computerName="MSI" duration="00:00:00.0034753" startTime="2025-07-27T23:56:01.4019303+02:00" endTime="2025-07-27T23:56:01.4019304+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="adb4abe9-2a3e-448a-8d01-2452a6bf9223" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ejercicio3.test.UnitTest1.MuestraArray_NoDebeGenerarExcepcion" storage="g:\trabajo\modulos\prog\programaciondam\u8_arrays\ejercicios\2_ejercicios\solucion\2_ejercicios_arrays_solucion\ejercicio3.test\bin\debug\net9.0\ejercicio3.test.dll" id="3648cdcc-b5ba-9ae6-9f44-4ed311793c12">
+      <Execution id="adb4abe9-2a3e-448a-8d01-2452a6bf9223" />
+      <TestMethod codeBase="G:\TRABAJO\MODULOS\PROG\PROGRAMACIONDAM\u8_arrays\ejercicios\2_ejercicios\solucion\2_ejercicios_arrays_solucion\ejercicio3.test\bin\Debug\net9.0\ejercicio3.test.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ejercicio3.test.UnitTest1" name="MuestraArray_NoDebeGenerarExcepcion" />
+    </UnitTest>
+    <UnitTest name="ejercicio3.test.UnitTest1.CreaTranspuesta_DebeTransponerElementosCorrectamente" storage="g:\trabajo\modulos\prog\programaciondam\u8_arrays\ejercicios\2_ejercicios\solucion\2_ejercicios_arrays_solucion\ejercicio3.test\bin\debug\net9.0\ejercicio3.test.dll" id="983773f5-9e39-a8fd-4d24-661bb99e0e84">
+      <Execution id="70136bf4-66ab-47c1-b138-26c676bc3648" />
+      <TestMethod codeBase="G:\TRABAJO\MODULOS\PROG\PROGRAMACIONDAM\u8_arrays\ejercicios\2_ejercicios\solucion\2_ejercicios_arrays_solucion\ejercicio3.test\bin\Debug\net9.0\ejercicio3.test.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ejercicio3.test.UnitTest1" name="CreaTranspuesta_DebeTransponerElementosCorrectamente" />
+    </UnitTest>
+    <UnitTest name="ejercicio3.test.UnitTest1.CreaTranspuesta_ArrayCuadrado_DebeTransponerCorrectamente" storage="g:\trabajo\modulos\prog\programaciondam\u8_arrays\ejercicios\2_ejercicios\solucion\2_ejercicios_arrays_solucion\ejercicio3.test\bin\debug\net9.0\ejercicio3.test.dll" id="cc402dc9-8e29-0cc5-2d1b-247017812241">
+      <Execution id="e30fe202-012d-4e19-9bd2-740e9b1ddd5d" />
+      <TestMethod codeBase="G:\TRABAJO\MODULOS\PROG\PROGRAMACIONDAM\u8_arrays\ejercicios\2_ejercicios\solucion\2_ejercicios_arrays_solucion\ejercicio3.test\bin\Debug\net9.0\ejercicio3.test.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ejercicio3.test.UnitTest1" name="CreaTranspuesta_ArrayCuadrado_DebeTransponerCorrectamente" />
+    </UnitTest>
+    <UnitTest name="ejercicio3.test.UnitTest1.CreaTranspuesta_DebeCrearArrayConDimensionesCorrectas" storage="g:\trabajo\modulos\prog\programaciondam\u8_arrays\ejercicios\2_ejercicios\solucion\2_ejercicios_arrays_solucion\ejercicio3.test\bin\debug\net9.0\ejercicio3.test.dll" id="4addd473-5858-1e93-0c68-641367a3684d">
+      <Execution id="7610b5de-f0f7-49ec-9fd1-6111dd4e90b7" />
+      <TestMethod codeBase="G:\TRABAJO\MODULOS\PROG\PROGRAMACIONDAM\u8_arrays\ejercicios\2_ejercicios\solucion\2_ejercicios_arrays_solucion\ejercicio3.test\bin\Debug\net9.0\ejercicio3.test.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ejercicio3.test.UnitTest1" name="CreaTranspuesta_DebeCrearArrayConDimensionesCorrectas" />
+    </UnitTest>
+    <UnitTest name="ejercicio3.test.UnitTest1.CreaTranspuesta_ArrayCompleto3x5_DebeTransponerCorrectamente" storage="g:\trabajo\modulos\prog\programaciondam\u8_arrays\ejercicios\2_ejercicios\solucion\2_ejercicios_arrays_solucion\ejercicio3.test\bin\debug\net9.0\ejercicio3.test.dll" id="8bc71c1a-7a8f-d916-43ea-d4b85ffd066d">
+      <Execution id="7f94ab8a-1697-4e9b-a2ab-caeab68bf3ac" />
+      <TestMethod codeBase="G:\TRABAJO\MODULOS\PROG\PROGRAMACIONDAM\u8_arrays\ejercicios\2_ejercicios\solucion\2_ejercicios_arrays_solucion\ejercicio3.test\bin\Debug\net9.0\ejercicio3.test.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ejercicio3.test.UnitTest1" name="CreaTranspuesta_ArrayCompleto3x5_DebeTransponerCorrectamente" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="983773f5-9e39-a8fd-4d24-661bb99e0e84" executionId="70136bf4-66ab-47c1-b138-26c676bc3648" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4addd473-5858-1e93-0c68-641367a3684d" executionId="7610b5de-f0f7-49ec-9fd1-6111dd4e90b7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cc402dc9-8e29-0cc5-2d1b-247017812241" executionId="e30fe202-012d-4e19-9bd2-740e9b1ddd5d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8bc71c1a-7a8f-d916-43ea-d4b85ffd066d" executionId="7f94ab8a-1697-4e9b-a2ab-caeab68bf3ac" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3648cdcc-b5ba-9ae6-9f44-4ed311793c12" executionId="adb4abe9-2a3e-448a-8d01-2452a6bf9223" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Resultados sin formato de lista" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Todos los resultados cargados" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="5" executed="5" passed="5" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.8.2+699d445a1a (64-bit .NET 9.0.2)&#xD;
+[xUnit.net 00:00:00.09]   Discovering: ejercicio3.test&#xD;
+[xUnit.net 00:00:00.12]   Discovered:  ejercicio3.test&#xD;
+[xUnit.net 00:00:00.13]   Starting:    ejercicio3.test&#xD;
+Test Array:&#xD;
+  1   2 &#xD;
+  3   4 &#xD;
+[xUnit.net 00:00:00.20]   Finished:    ejercicio3.test&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
