@@ -4,7 +4,7 @@ namespace Ejercicio3
 {
     public class Program
     {
-     
+     static 
 
         static void Main(string[] args)
         {

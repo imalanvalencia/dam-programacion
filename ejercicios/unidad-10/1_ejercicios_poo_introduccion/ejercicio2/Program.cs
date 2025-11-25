@@ -60,7 +60,54 @@ namespace Ejercicio2
     public class Program
     {
         //TODO: Implementar la lógica de los métodos que faltan
+        static double PideNumero(string mensaje)
+        {
+            bool valid = true;
+            double numero = 0;
 
+            Console.WriteLine(mensaje);
+
+            while (!valid)
+            {
+                valid = double.TryParse(Console.ReadLine() ?? "", out numero);
+
+                if (!valid)
+                    Console.WriteLine("Por favor, introduce un número válido. ");
+
+            }
+            return numero;
+        }
+
+        static void DemuestraCalculadoraEstatica(double valor1, double valor2)
+        {
+            Console.WriteLine(
+                $"Suma: {CalculadoraEstatica.Suma(valor1, valor2)}\nResta: {CalculadoraEstatica.Resta(valor1, valor2)}\nMultiplicación: {CalculadoraEstatica.Resta(valor1, valor2)}\nDivisión: 1,{CalculadoraEstatica.Resta(valor1, valor2)}");
+        }
+
+        static void DemuestraCalculadoraTAD(double valor1, double valor2)
+        {
+            CalculadoraTAD calculadora1 = new(valor1, valor2);
+            CalculadoraTAD calculadora2 = new(valor1 * 2, valor2 + 2);
+
+
+            Console.WriteLine(
+                "Creando calculadora TAD con valores iniciales...\n\n" +
+                $"Calculadora 1: Valor1={calculadora1.Valor1}, Valor2={calculadora1.Valor2}\nSuma: {calculadora1.Suma()}\nResta: {calculadora1.Resta()}\nMultiplicación: {calculadora1.Resta()}\nDivisión: 1,{calculadora1.Resta()}" +
+
+                "Creando segunda calculadora...\n" +
+                $"Calculadora 2: Valor1={calculadora2.Valor1}, Valor2={calculadora2.Valor2}\nSuma: {calculadora1.Suma()}\nResta: {calculadora1.Resta()}\nMultiplicación: {calculadora1.Resta()}\nDivisión: 1,{calculadora1.Resta()}");
+
+
+            calculadora1.Valor1 = 30;
+            calculadora1.Valor2 = 15;
+
+            System.Console.WriteLine("Modificando valores de calculadora 1...\n" +
+            $"Calculadora 1 modificada: Valor1={valor1 * 2}, Valor2={valor2 + 1}\nSuma: {calculadora1.Suma()}\nResta: {calculadora1.Resta()}\nMultiplicación: {calculadora1.Resta()}\nDivisión: 1,{calculadora1.Resta()}");
+
+            Console.WriteLine($"¿Las calculadoras son el mismo objeto? {ReferenceEquals(calculadora1, calculadora2)}\n¿Las calculadoras tienen los mismos valores ? {calculadora1.Valor1 == calculadora2.Valor1 && calculadora1.Valor2 == calculadora2.Valor2}");
+
+            Console.WriteLine("Estado final:\nCalculadora 1: Valor1={calculadora1.Valor1}, Valor2={calculadora1.Valor2}\nValor1={calculadora2.Valor1}, Valor2={calculadora2.Valor2}");
+        }
 
         static void Main(string[] args)
         {
