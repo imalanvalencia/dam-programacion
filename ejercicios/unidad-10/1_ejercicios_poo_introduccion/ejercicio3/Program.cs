@@ -4,7 +4,61 @@ namespace Ejercicio3
 {
     public class Program
     {
-     static 
+        public static Uri[] CreaUris(int cantidad)
+        {
+            Uri[] uris = new Uri[cantidad];
+
+            string[] entradas =
+            [
+            "https://www.google.com/search?q=csharp",
+            "ftp://files.example.com:21/documents/file.txt",
+            "mailto:info@example.com",
+            "invalid-url-format" // inválida
+            ];
+
+            for (int i = 0; i < entradas.Length; i++)
+            {
+                if (Uri.TryCreate(entradas[i], UriKind.Absolute, out Uri resultado))
+                {
+                    uris[i] = resultado;
+                    Console.WriteLine($"Introduce URI {i + 1}: {entradas[i]}");
+                    Console.WriteLine("¿Es una URI válida? True\n");
+                }
+                else
+                {
+                    Console.WriteLine($"Introduce URI {i + 1}: {entradas[i]}");
+                    Console.WriteLine("¿Es una URI válida? False");
+                    Console.WriteLine("URI inválida detectada, se creará URI por defecto.\n");
+                    uris[i] = new Uri("http://localhost"); // URI por defecto
+                }
+            }
+
+            return uris;
+        }
+
+        // Método que muestra información detallada de cada URI
+        public static void MuestraInformacion(Uri uri)
+        {
+            Console.WriteLine($"URI completa: {uri.AbsoluteUri}");
+            Console.WriteLine($"Esquema: {uri.Scheme}");
+            Console.WriteLine($"Host: {uri.Host}");
+            Console.WriteLine($"Puerto: {uri.Port}");
+            Console.WriteLine($"Ruta: {uri.AbsolutePath}");
+            Console.WriteLine($"Query: {uri.Query}");
+            Console.WriteLine($"¿Es archivo?: {uri.IsFile}");
+            Console.WriteLine($"¿Es UNC?: {uri.IsUnc}");
+            Console.WriteLine($"¿Es absoluta?: {uri.IsAbsoluteUri}\n");
+        }
+
+        // Método que compara dos URIs
+        public static bool ComparaUris(Uri uri1, Uri uri2)
+        {
+            Console.WriteLine($"¿{uri1.AbsoluteUri} y {uri2.AbsoluteUri} tienen el mismo host? {uri1.Host == uri2.Host}");
+            Console.WriteLine($"¿{uri1.AbsoluteUri} y {uri2.AbsoluteUri} tienen el mismo esquema? {uri1.Scheme == uri2.Scheme}");
+            Console.WriteLine($"¿{uri1.AbsoluteUri} y {uri2.AbsoluteUri} son iguales? {uri1.Equals(uri2)}\n");
+
+            return uri1.Host == uri2.Host && uri1.Scheme == uri2.Scheme && uri1.Equals(uri2);
+        }
 
         static void Main(string[] args)
         {
