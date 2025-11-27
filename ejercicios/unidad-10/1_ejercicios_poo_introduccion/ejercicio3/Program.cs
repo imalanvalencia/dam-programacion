@@ -8,35 +8,33 @@ namespace Ejercicio3
         {
             Uri[] uris = new Uri[cantidad];
 
-            string[] entradas =
-            [
-            "https://www.google.com/search?q=csharp",
-            "ftp://files.example.com:21/documents/file.txt",
-            "mailto:info@example.com",
-            "invalid-url-format" // inválida
-            ];
 
-            for (int i = 0; i < entradas.Length; i++)
+
+            for (int i = 0; i < uris.Length; i++)
             {
-                if (Uri.TryCreate(entradas[i], UriKind.Absolute, out Uri resultado))
+                
+                Console.WriteLine($"Introduce URI {i + 1}: ");
+                string entrada = Console.ReadLine() ?? "";
+
+                if (Uri.TryCreate(entrada, UriKind.Absolute, out Uri? resultado))
                 {
                     uris[i] = resultado;
-                    Console.WriteLine($"Introduce URI {i + 1}: {entradas[i]}");
                     Console.WriteLine("¿Es una URI válida? True\n");
+
+                    MuestraInformacion(uris[i]);
+                    Console.WriteLine();
                 }
                 else
                 {
-                    Console.WriteLine($"Introduce URI {i + 1}: {entradas[i]}");
                     Console.WriteLine("¿Es una URI válida? False");
                     Console.WriteLine("URI inválida detectada, se creará URI por defecto.\n");
-                    uris[i] = new Uri("http://localhost"); // URI por defecto
+                    uris[i] = new Uri("http://localhost"); 
                 }
             }
 
             return uris;
         }
 
-        // Método que muestra información detallada de cada URI
         public static void MuestraInformacion(Uri uri)
         {
             Console.WriteLine($"URI completa: {uri.AbsoluteUri}");
@@ -50,7 +48,6 @@ namespace Ejercicio3
             Console.WriteLine($"¿Es absoluta?: {uri.IsAbsoluteUri}\n");
         }
 
-        // Método que compara dos URIs
         public static bool ComparaUris(Uri uri1, Uri uri2)
         {
             Console.WriteLine($"¿{uri1.AbsoluteUri} y {uri2.AbsoluteUri} tienen el mismo host? {uri1.Host == uri2.Host}");
@@ -68,16 +65,6 @@ namespace Ejercicio3
             Console.WriteLine("=== CREACIÓN DE URIs Y ANÁLISIS ===");
 
             Uri[] uris = CreaUris(4);
-
-            // Mostrar información de cada URI válida
-            for (int i = 0; i < uris.Length; i++)
-            {
-                if (uris[i] != null)
-                {
-                    MuestraInformacion(uris[i]);
-                    Console.WriteLine();
-                }
-            }
 
             Console.WriteLine("=== COMPARACIONES ===");
 
