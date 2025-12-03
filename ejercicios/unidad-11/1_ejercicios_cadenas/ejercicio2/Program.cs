@@ -1,11 +1,36 @@
 ﻿using System;
+using System.Text;
 
 namespace ejercicio2
 {
     public class Program
     {
         //TODO: Implementar los métodos necesarios
-        public static string FormateaString(string frase) => string.Join("", frase.ToLower().Split(' '));
+
+        public static char SustituyeAcento(char caracter) => caracter switch
+        {
+            'á' or 'à' or 'ä' or 'â' => 'a',
+            'é' or 'è' or 'ë' or 'ê' => 'e',
+            'í' or 'ì' or 'ï' or 'î' => 'i',
+            'ó' or 'ò' or 'ö' or 'ô' => 'o',
+            'ú' or 'ù' or 'ü' or 'û' => 'u',
+            _ => caracter,
+        };
+
+        public static string FormateaString(string frase)
+        {
+            StringBuilder cadenaFormateada = new(string.Join("", frase.Split(" ")).ToLower());
+
+            foreach (var character in cadenaFormateada.ToString())
+            {
+                if (char.IsLetter(character))
+                {
+                    cadenaFormateada.Replace(character, SustituyeAcento(character));
+                }
+            }
+
+            return cadenaFormateada.ToString();
+        }
 
         public static string Reverse(string frase)
         {
