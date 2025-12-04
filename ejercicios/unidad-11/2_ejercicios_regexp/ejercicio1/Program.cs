@@ -4,23 +4,24 @@ using System.Text.RegularExpressions;
 public class Program
 {
 
-    public static string[] ExtraerEtiquetas(string input)
+    public static string[] ExtraerEtiquetas(string entrada)
     {
-        var matches = Regex.Matches(input, @"<(?<tag>\w+)>(?<content>.*?)</\k<tag>>", RegexOptions.Singleline);
-        var results = new string[matches.Count];
-        for (int i = 0; i < matches.Count; i++)
+        MatchCollection matchea = Regex.Matches(entrada, @"<(?<tag>\w+)>(?<content>.*?)</\k<tag>>", RegexOptions.Singleline);
+        var resultado = new string[matchea.Count];
+
+        for (int i = 0; i < matchea.Count; i++)
         {
-            results[i] = matches[i].Groups["content"].Value;
+            resultado[i] = matchea[i].Groups["content"].Value;
         }
-        return results;
+        return resultado;
     }
 
     static void Main()
     {
-        string tag = "<p>Hola mundo</p><p>¿Qué tal estás?</p>";
+        string etiqueta = "<p>Hola mundo</p><p>¿Qué tal estás?</p>";
 
-        Console.WriteLine("ExtraeEtiquetas(\"" + tag + "\")");
-        Console.WriteLine("Devuelve: " + string.Join(", ", ExtraerEtiquetas(tag)));
+        Console.WriteLine("ExtraeEtiquetas(\"" + etiqueta + "\")");
+        Console.WriteLine("Devuelve: " + string.Join(", ", ExtraerEtiquetas(etiqueta)));
         Console.ReadLine();
     }
 }
