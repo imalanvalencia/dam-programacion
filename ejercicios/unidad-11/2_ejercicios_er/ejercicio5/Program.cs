@@ -21,19 +21,19 @@ public class Program
 
 
 
-public static string ReescribeTiko(string frase)
-{
-    frase = Regex.Replace(frase, @"(j[aeiou]){2,}", "😂", RegexOptions.IgnoreCase);
+    public static string ReescribeTiko(string frase)
+    {
+        frase = Regex.Replace(frase, @"(j[aeiou])\1+", "😂", RegexOptions.IgnoreCase);
 
-    frase = Regex.Replace(frase, @"\bx q\b", "por qué", RegexOptions.IgnoreCase);
+        frase = Regex.Replace(frase, @"\bx q\b", "por qué", RegexOptions.IgnoreCase);
 
-    frase = Regex.Replace(frase, @"([a-km-qs-z])\1+", "$1", RegexOptions.IgnoreCase);
-    frase = Regex.Replace(frase, @"([rl])\1{2,}", "$1$1", RegexOptions.IgnoreCase);
+        frase = Regex.Replace(frase, @"([a-km-qs-z])\1+", "$1", RegexOptions.IgnoreCase);
+        frase = Regex.Replace(frase, @"([rl])\1{2,}", "$1$1", RegexOptions.IgnoreCase);
 
-    frase = Regex.Replace(frase, @"\d", NumberToString);
-    
-    
-    return frase;
+        frase = Regex.Replace(frase, @"\d", NumberToString);
+        
+        
+        return frase;
 }
     static void Main()
     {
@@ -45,6 +45,12 @@ public static string ReescribeTiko(string frase)
         string resultado = ReescribeTiko(entrada);
         Console.WriteLine("Frase transformada al lenguaje Tiko:");
         Console.WriteLine(resultado);
+
+        string entrada2 = "jajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajaja";
+        Console.WriteLine(entrada2);
+        string resultado2 = ReescribeTiko(entrada2);
+        Console.WriteLine("Frase transformada al lenguaje Tiko:");
+        Console.WriteLine(resultado2);
 
         Console.WriteLine("\nPresiona Enter para salir...");
         Console.ReadLine();
