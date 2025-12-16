@@ -47,10 +47,11 @@ public class Program
 
         """);
 
-        sb2.Append(" !!!");
+        sb2.Append("!!!");
 
         Console.WriteLine($"""
-        Modificando el texto copiado (añadiendo ' !!!')...
+        Modificando texto copiado (añadiendo ' !!!')... 
+
         Texto original: {sb1}
         Texto copiado:  {sb2}
 
@@ -62,7 +63,7 @@ public class Program
 
     public static void ModificaTipoValor(DateTime fecha) => fecha.AddDays(5);
 
-    public static void ModificaTipoReferencia(StringBuilder texto) => texto.Append(" mundo");
+    public static void ModificaTipoReferencia(StringBuilder texto) => texto.Append(" - Modificado en método");
 
 
     public static void Main(string[] args)
