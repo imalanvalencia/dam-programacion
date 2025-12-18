@@ -17,6 +17,7 @@ public class Program
 
         // 2️⃣ Próximo cumpleaños
         DateTime proximoCumple = new(hoy.Year, fechaNacimiento.Month, fechaNacimiento.Day);
+
         if (proximoCumple < hoy) proximoCumple = proximoCumple.AddYears(1);
 
         int diasParaCumple = (proximoCumple - hoy).Days;
@@ -70,14 +71,49 @@ public class Program
         Hora de fin descanso: {finDescanso}
 
         Tiempo trabajado efectivo: {jornadaEfectiva}
-        Horas trabajadas en la semana (5 días): {horasSemanales:hh\:mm\:ss}
+        Horas trabajadas en la semana (5 días): {(int)horasSemanales.TotalHours}:{horasSemanales:mm\:ss}
         """);
     }
 
 
+    static string FormateaFecha(DateTime fecha, CultureInfo? cultura = null)
+    {
+        cultura ??= new CultureInfo("es-ES");
+        return fecha.ToString("d 'de' MMMM", cultura);
+    }
+
     public static void MuestraComparaciones()
     {
-        return;
+        CultureInfo cultura = new("es-ES");
+
+        DateTime fecha1 = new(2025, 3, 15, 8, 30, 0);
+        DateTime fecha2 = new(2025, 7, 31, 17, 45, 0);
+
+        // Extraemos las horas directamente de las fechas
+        TimeOnly hora1 = TimeOnly.FromDateTime(fecha1);
+        TimeOnly hora2 = TimeOnly.FromDateTime(fecha2);
+
+        // Fin de año del mismo año que fecha2
+        DateTime finDeAnio = new(fecha2.Year, 12, 31);
+        int diasHastaFinDeAnio = (finDeAnio - fecha2.Date).Days;
+
+        Console.WriteLine($"""
+    === COMPARACIONES TEMPORALES ===
+    Fecha 1: {fecha1.ToString("dd/MM/yyyy HH:mm:ss", cultura)}
+    Fecha 2: {fecha2.ToString("dd/MM/yyyy HH:mm:ss", cultura)}
+
+    ¿El {FormateaFecha(fecha1)} es antes que el {FormateaFecha(fecha2)}? {fecha1 < fecha2}
+    ¿El {FormateaFecha(fecha1)} es después que el {FormateaFecha(fecha2)}? {fecha1 > fecha2}
+    ¿Ambas fechas son iguales? {fecha1 == fecha2}
+    ¿Las fechas son distintas? {fecha1 != fecha2}
+
+    Comparación usando CompareTo():
+    {FormateaFecha(fecha1)}.CompareTo({FormateaFecha(fecha2)}): {fecha1.CompareTo(fecha2)}
+    Fecha 2.CompareTo({FormateaFecha(fecha1)}): {fecha2.CompareTo(fecha1)}
+
+    ¿Las {fecha1.ToString("HH:mm", cultura)} es antes que las {fecha2.ToString("HH:mm", cultura)}? {hora1 < hora2}
+    ¿Quedan más de 100 días para fin de año? {diasHastaFinDeAnio > 100}
+    """);
     }
 
     public static void Main(string[] args)
@@ -88,20 +124,20 @@ public class Program
         DateOnly fechaSolo = DateOnly.FromDateTime(fechaActual);
         TimeOnly horaSolo = TimeOnly.FromDateTime(fechaActual);
 
-        Console.WriteLine("=== INFORMACIÓN FECHA ACTUAL ===\n");
-        Console.WriteLine($"Fecha actual: {fechaActual.ToString("dddd, dd 'de' MMMM 'de' yyyy", new CultureInfo("es-ES"))}");
-        Console.WriteLine($"Hora actual: {horaSolo}");
-        Console.WriteLine($"Fecha solo: {fechaSolo:dd/MM/yyyy}");
-        Console.WriteLine($"Hora solo: {horaSolo}");
+        // Console.WriteLine("=== INFORMACIÓN FECHA ACTUAL ===\n");
+        // Console.WriteLine($"Fecha actual: {fechaActual.ToString("dddd, dd 'de' MMMM 'de' yyyy", new CultureInfo("es-ES"))}");
+        // Console.WriteLine($"Hora actual: {horaSolo}");
+        // Console.WriteLine($"Fecha solo: {fechaSolo:dd/MM/yyyy}");
+        // Console.WriteLine($"Hora solo: {horaSolo}");
 
-        Console.Write("\nIntroduce tu fecha de nacimiento (dd/MM/yyyy): ");
-        string inputFecha = Console.ReadLine() ?? "15/03/1995";
-        DateTime fechaNacimiento = DateTime.ParseExact(inputFecha, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+        // Console.Write("\nIntroduce tu fecha de nacimiento (dd/MM/yyyy): ");
+        // string inputFecha = Console.ReadLine() ?? "15/03/1995";
+        // DateTime fechaNacimiento = DateTime.ParseExact(inputFecha, "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
-        Console.WriteLine();
-        CalculaEdad(fechaNacimiento);
-        Console.WriteLine("\nVamos a calcular la jornada laboral...   ");
-        CalculaJornadaLaboral();
+        // Console.WriteLine();
+        // CalculaEdad(fechaNacimiento);
+        // Console.WriteLine("\nVamos a calcular la jornada laboral...   ");
+        // CalculaJornadaLaboral();
 
         Console.WriteLine("\nVamos a mostrar comparaciones temporales...   ");
         MuestraComparaciones();
