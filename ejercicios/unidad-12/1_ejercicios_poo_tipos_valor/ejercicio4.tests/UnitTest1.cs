@@ -1,4 +1,4 @@
-﻿using Xunit;
+using Xunit;
 
 namespace ejercicio4.tests
 {
@@ -30,8 +30,8 @@ namespace ejercicio4.tests
             Assert.Contains("Error en conversión", output);
 
             // Comprobar que aparecen 3 GUIDs de usuario
-            int usuarios = output.Split("Usuario-").Length - 1;
-            Assert.Equal(3, usuarios);
+            var usuarios = System.Text.RegularExpressions.Regex.Matches(output, @"Usuario \d+:");
+            Assert.Equal(3, usuarios.Count);
 
             // Comprobar formato sin guiones (32 caracteres hex)
             var sinGuiones = System.Text.RegularExpressions.Regex.Match(output, @"Formato sin guiones: ([a-fA-F0-9]{32})");

@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Globalization;
 using System.Text;
 
 public class Program
@@ -6,13 +7,14 @@ public class Program
     //TODO: Implementa la lógica necesaria para solucionar el ejercicio
     public static void DemuestraTipoValor()
     {
+        CultureInfo cultura = CultureInfo.GetCultureInfo("es-ES");
         DateTime fecha1 = new(2025, 12, 25, 10, 30, 0);
         DateTime fecha2 = fecha1;
 
         Console.WriteLine($"""
         --- DateTime (tipo valor) ---
-        Fecha original: {fecha1}
-        Fecha copiada:  {fecha2}
+        Fecha original: {fecha1.ToString("dd/MM/yyyy HH:mm:ss", cultura)}
+        Fecha copiada:  {fecha2.ToString("dd/MM/yyyy HH:mm:ss", cultura)}
 
         ¿Misma referencia?: {ReferenceEquals(fecha1, fecha2)}
         ¿Mismo valor?:      {fecha1 == fecha2}
@@ -23,8 +25,8 @@ public class Program
         fecha2 = fecha1.AddDays(5);
         Console.WriteLine($"""
         Modificando fecha copiada (añadiendo 5 días)...
-        Fecha original: {fecha1}
-        Fecha copiada:  {fecha2}
+        Fecha original: {fecha1.ToString("dd/MM/yyyy HH:mm:ss", cultura)}
+        Fecha copiada:  {fecha2.ToString("dd/MM/yyyy HH:mm:ss", cultura)}
 
         ¿Misma referencia?: {ReferenceEquals(fecha1, fecha2)}
         ¿Mismo valor?:      {fecha1 == fecha2}
@@ -89,6 +91,13 @@ public class Program
         Console.WriteLine("(El método SÍ puede modificar el original)");
 
         Console.WriteLine("\nPulsa una tecla para acabar...");
-        Console.ReadKey();
+        try
+        {
+            Console.ReadKey();
+        }
+        catch (InvalidOperationException)
+        {
+            // Console input redirected - just exit
+        }
     }
 }
