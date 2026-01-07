@@ -14,7 +14,7 @@ public class EmpleadoTests
         Assert.Equal("12345678A", empleado.GetDni());
         Assert.Equal("Juan Pérez", empleado.GetNombre());
         Assert.Equal(1990, empleado.GetAñoNacimiento());
-        Assert.Equal(Categoria.Subalterno, empleado.GetCategoria());
+        Assert.Equal(Empleado.Categoria.Subalterno, empleado.GetCategoria());
     }
 
     [Fact]
@@ -22,7 +22,7 @@ public class EmpleadoTests
     {
         // Arrange
         var empleadoOriginal = new Empleado("12345678A", "Juan Pérez", 1990);
-        empleadoOriginal.SetCategoria(Categoria.Administrativo);
+        empleadoOriginal.SetCategoria(Empleado.Categoria.Administrativo);
         
         // Act
         var empleadoCopia = new Empleado(empleadoOriginal);
@@ -41,10 +41,10 @@ public class EmpleadoTests
         var empleado = new Empleado("12345678A", "Juan Pérez", 1990);
         
         // Act
-        empleado.SetCategoria(Categoria.Gerente);
+        empleado.SetCategoria(Empleado.Categoria.Gerente);
         
         // Assert
-        Assert.Equal(Categoria.Gerente, empleado.GetCategoria());
+        Assert.Equal(Empleado.Categoria.Gerente, empleado.GetCategoria());
     }
 
     [Fact]
@@ -52,7 +52,7 @@ public class EmpleadoTests
     {
         // Arrange
         var empleado = new Empleado("12345678A", "Juan Pérez", 1990);
-        empleado.SetCategoria(Categoria.Administrativo); // 20%
+        empleado.SetCategoria(Empleado.Categoria.Administrativo); // 20%
         
         // Act
         var salario = empleado.Salario();
@@ -80,10 +80,10 @@ public class EmpleadoTests
     {
         // Arrange
         var empleado1 = new Empleado("12345678A", "Juan Pérez", 1990);
-        empleado1.SetCategoria(Categoria.Gerente); // 60%
+        empleado1.SetCategoria(Empleado.Categoria.Gerente); // 60%
         
         var empleado2 = new Empleado("87654321B", "Ana García", 1985);
-        empleado2.SetCategoria(Categoria.Administrativo); // 20%
+        empleado2.SetCategoria(Empleado.Categoria.Administrativo); // 20%
         
         // Act & Assert
         Assert.True(empleado1.TieneMayorSalario(empleado2));
@@ -95,10 +95,10 @@ public class EmpleadoTests
     {
         // Arrange
         var empleado1 = new Empleado("12345678A", "Juan Pérez", 1990);
-        empleado1.SetCategoria(Categoria.JefeDepartamento); // 40
+        empleado1.SetCategoria(Empleado.Categoria.JefeDepartamento); // 40
         
         var empleado2 = new Empleado("87654321B", "Ana García", 1985);
-        empleado2.SetCategoria(Categoria.Subalterno); // 10
+        empleado2.SetCategoria(Empleado.Categoria.Subalterno); // 10
         
         // Act & Assert
         Assert.True(empleado1.EsMayorCategoria(empleado2));
@@ -124,7 +124,7 @@ public class EmpleadoTests
     {
         // Arrange
         var empleado = new Empleado("12345678A", "Juan Pérez", 1990);
-        empleado.SetCategoria(Categoria.Administrativo);
+        empleado.SetCategoria(Empleado.Categoria.Administrativo);
         
         // Act
         var cadena = empleado.ACadena();
@@ -144,28 +144,28 @@ public class ProgramTests
     public void ParsearCategoria_DeberiaReconocerNombresCompletos()
     {
         // Act & Assert
-        Assert.Equal(Categoria.Subalterno, Program.ParseaCategoria("subalterno"));
-        Assert.Equal(Categoria.Administrativo, Program.ParseaCategoria("administrativo"));
-        Assert.Equal(Categoria.JefeDepartamento, Program.ParseaCategoria("jefedepartamento"));
-        Assert.Equal(Categoria.Gerente, Program.ParseaCategoria("gerente"));
+        Assert.Equal(Empleado.Categoria.Subalterno, Program.ParseaCategoria("subalterno"));
+        Assert.Equal(Empleado.Categoria.Administrativo, Program.ParseaCategoria("administrativo"));
+        Assert.Equal(Empleado.Categoria.JefeDepartamento, Program.ParseaCategoria("jefedepartamento"));
+        Assert.Equal(Empleado.Categoria.Gerente, Program.ParseaCategoria("gerente"));
     }
 
     [Fact]
     public void ParsearCategoria_DeberiaReconocerValoresNumericos()
     {
         // Act & Assert
-        Assert.Equal(Categoria.Subalterno, Program.ParseaCategoria("10"));
-        Assert.Equal(Categoria.Administrativo, Program.ParseaCategoria("20"));
-        Assert.Equal(Categoria.JefeDepartamento, Program.ParseaCategoria("40"));
-        Assert.Equal(Categoria.Gerente, Program.ParseaCategoria("60"));
+        Assert.Equal(Empleado.Categoria.Subalterno, Program.ParseaCategoria("10"));
+        Assert.Equal(Empleado.Categoria.Administrativo, Program.ParseaCategoria("20"));
+        Assert.Equal(Empleado.Categoria.JefeDepartamento, Program.ParseaCategoria("40"));
+        Assert.Equal(Empleado.Categoria.Gerente, Program.ParseaCategoria("60"));
     }
 
     [Fact]
     public void ParsearCategoria_DeberiaRetornarSubalternoPorDefecto()
     {
         // Act & Assert
-        Assert.Equal(Categoria.Subalterno, Program.ParseaCategoria("invalido"));
-        Assert.Equal(Categoria.Subalterno, Program.ParseaCategoria(""));
-        Assert.Equal(Categoria.Subalterno, Program.ParseaCategoria("999"));
+        Assert.Equal(Empleado.Categoria.Subalterno, Program.ParseaCategoria("invalido"));
+        Assert.Equal(Empleado.Categoria.Subalterno, Program.ParseaCategoria(""));
+        Assert.Equal(Empleado.Categoria.Subalterno, Program.ParseaCategoria("999"));
     }
 }
