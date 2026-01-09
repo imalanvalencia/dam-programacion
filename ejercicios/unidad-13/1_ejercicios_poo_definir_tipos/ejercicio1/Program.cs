@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography;
+using System.Text;
 
 
 //TODO: Implementar las clases necesarias para la gestión de empleados
@@ -110,13 +111,14 @@ public class Program
         if (string.IsNullOrWhiteSpace(texto))
             return Empleado.Categoria.Subalterno;
 
-        if (Enum.IsDefined(typeof(Empleado.Categoria), texto) &&
-            Enum.TryParse(texto, true, out Empleado.Categoria categoria))
-            return categoria;
 
         if (int.TryParse(texto, out int valor) &&
             Enum.IsDefined(typeof(Empleado.Categoria), valor))
             return (Empleado.Categoria)valor;
+
+        if (Enum.TryParse(texto, true, out Empleado.Categoria categoria) &&
+            Enum.IsDefined(typeof(Empleado.Categoria), categoria))
+            return categoria;
 
         return Empleado.Categoria.Subalterno;
     }
