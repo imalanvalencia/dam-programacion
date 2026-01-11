@@ -1,26 +1,61 @@
-﻿
+
 using System;
 
+public enum Color { Rojo, Azul, Verde, Negro, Amarillo, Blanco, Naranja, Cafe, Gris, Rosado, Violeta };
 
 public class Rotulador
 {
-    public enum Color { Rojo, Azul, Verde, Negro, Amarillo, Blanco, Naranja, Cafe, Gris, Rosado, Violeta };
+    public Color ColorRotulador { get; private set; }
+    
+    public Rotulador(string nombreColor)
+    {
+        ColorRotulador = ConvertirStringAColor(nombreColor);
+    }
+    
+    private Color ConvertirStringAColor(string nombreColor)
+    {
+        return nombreColor.ToLower() switch
+        {
+            "rojo" => Color.Rojo,
+            "azul" => Color.Azul,
+            "verde" => Color.Verde,
+            "negro" => Color.Negro,
+            "amarillo" => Color.Amarillo,
+            "blanco" => Color.Blanco,
+            "naranja" => Color.Naranja,
+            "cafe" => Color.Cafe,
+            "gris" => Color.Gris,
+            "rosado" => Color.Rosado,
+            "violeta" => Color.Violeta,
+            _ => throw new ArgumentException($"Color '{nombreColor}' no válido")
+        };
+    }
+    
+    public Color ObtenerColor()
+    {
+        return ColorRotulador;
+    }
+    
+    public void Rotula(float perimetro)
+    {
+        Console.WriteLine($"Rotulado el perímetro de {perimetro.ToString("F2", System.Globalization.CultureInfo.GetCultureInfo("es-ES"))} cm de color {ColorRotulador}");
+    }
 }
 
 
 public static class Estuche
 {
-    // obtener 
-    public const int NUMERO_ROTULADORES = 10;
+    public const int NUMERO_ROTULADORES = 5;
 
     public static Rotulador[] GetRotuladores()
     {
-        Rotulador[] rotuladores = [];
-
-        for (int i = 0; i < NUMERO_ROTULADORES; i++)
-        {
-            rotuladores = [..rotuladores, new Rotulador()];
-        }
+        Rotulador[] rotuladores = new Rotulador[NUMERO_ROTULADORES];
+        
+        rotuladores[0] = new Rotulador("Rojo");
+        rotuladores[1] = new Rotulador("Azul");
+        rotuladores[2] = new Rotulador("Verde");
+        rotuladores[3] = new Rotulador("Amarillo");
+        rotuladores[4] = new Rotulador("Negro");
 
         return rotuladores;
     }
@@ -52,6 +87,7 @@ public class Compas
 {
     public Circulo DibujaCirculo(float radio)
     {
+        Console.WriteLine($"Dibujado un círculo de radio {radio.ToString("F1", System.Globalization.CultureInfo.GetCultureInfo("es-ES"))} cm");
         return new Circulo(radio);
     }
 }
@@ -59,10 +95,21 @@ public class Compas
 
 public class Pincel
 {
-
+    public Color ColorPincel { get; private set; }
+    
+    public void SetColor(Color color)
+    {
+        ColorPincel = color;
+    }
+    
+    public void Pinta(float area)
+    {
+        Console.WriteLine($"Pintada el área de {area.ToString("F2", System.Globalization.CultureInfo.GetCultureInfo("es-ES"))} cm² de color {ColorPincel}");
+    }
 }
 
 public class Program
+
 {
     //TODO: Implementar la lógica necesaria para gestionar el sistema de dibujo
 
