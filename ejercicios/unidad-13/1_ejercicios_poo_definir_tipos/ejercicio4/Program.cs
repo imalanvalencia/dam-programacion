@@ -1,5 +1,64 @@
 ﻿using System;
 
+public class Vehiculo
+{
+    public string Matricula { get; private set; }
+    public string Marca { get; private set; }
+    public string Modelo { get; private set; }
+    public int Año { get; private set; }
+    public double Precio { get; private set; }
+    public int Kilometros { get; private set; }
+
+    public Vehiculo(string matricula, string marca, string modelo, int año, double precio, int kilometros)
+    {
+        Matricula = matricula;
+        Marca = marca;
+        Modelo = modelo;
+        Año = año;
+        Precio = precio;
+        Kilometros = kilometros;
+    }
+
+    public string Estado => Kilometros <= 1000 ? "Nuevo" : "Usado";
+
+    public int Antigüedad => DateTime.Now.Year - Año;
+
+    public double DepreciacionKilometraje => Kilometros * 0.10;
+
+    public double ValorReal => Precio - DepreciacionKilometraje;
+
+
+    public string NombreCompleto => $"{Marca} {Modelo} ({Año})";
+
+    public void AñadeKilometros(int km)
+    {
+        Kilometros += km;
+    }
+
+    public void AplicaDescuento(double porcentaje)
+    {
+        Precio -= Precio * (porcentaje / 100);
+    }
+
+    public void ActualizaPrecio(double nuevoPrecio)
+    {
+        Precio = nuevoPrecio;
+    }
+
+    public string ACadena()
+    {
+        return $"""
+        -Matrícula: {Matricula}
+        - Vehiculo: {Marca} {Modelo} ({Año})
+        - Año: {Año}
+        - Precio: {Precio:F2} €
+        - Valor real: {ValorReal:F2} €
+        - Kilómetros: {Kilometros}
+        - Estado: {Estado}
+        """;
+    }
+}
+
 public class Program
 {
     //TODO: Implementar la lógica necesaria para gestionar vehículos

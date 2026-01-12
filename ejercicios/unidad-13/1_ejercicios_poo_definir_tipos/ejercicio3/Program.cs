@@ -1,4 +1,4 @@
-
+﻿
 using System;
 
 public enum Color { Rojo, Azul, Verde, Negro, Amarillo, Blanco, Naranja, Cafe, Gris, Rosado, Violeta };
@@ -27,7 +27,7 @@ public class Rotulador
             "gris" => Color.Gris,
             "rosado" => Color.Rosado,
             "violeta" => Color.Violeta,
-            _ => throw new ArgumentException($"Color '{nombreColor}' no válido")
+            _ => throw new ArgumentException("Color no válido")
         };
     }
     
@@ -49,14 +49,14 @@ public static class Estuche
 
     public static Rotulador[] GetRotuladores()
     {
-        Rotulador[] rotuladores = new Rotulador[NUMERO_ROTULADORES];
-        
-        rotuladores[0] = new Rotulador("Rojo");
-        rotuladores[1] = new Rotulador("Azul");
-        rotuladores[2] = new Rotulador("Verde");
-        rotuladores[3] = new Rotulador("Amarillo");
-        rotuladores[4] = new Rotulador("Negro");
-
+        Rotulador[] rotuladores =
+        [
+            new Rotulador("Rojo"),
+            new Rotulador("Azul"),
+            new Rotulador("Verde"),
+            new Rotulador("Amarillo"),
+            new Rotulador("Negro"),
+        ];
         return rotuladores;
     }
 }
