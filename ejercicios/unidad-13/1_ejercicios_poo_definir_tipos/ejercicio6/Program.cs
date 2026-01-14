@@ -4,7 +4,8 @@ using System;
 // Una clase tradicional (Entity)
 public class Producto
 {
-    public Guid Id { get; }
+
+    public  Guid Id { get; }
     public string Nombre { get; }
     public Precio Precio { get; private set; }
 
