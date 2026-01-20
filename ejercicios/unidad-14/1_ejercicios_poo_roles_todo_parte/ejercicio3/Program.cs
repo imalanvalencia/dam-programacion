@@ -71,7 +71,7 @@ public class RutaTuristica
 	{
 		Id = Guid.NewGuid();
 		Nombre = nombre;
-		puntos = new List<PuntoInteres>();
+		puntos = new();
 	}
 
 	public void AgregaPunto(PuntoInteres punto) => puntos.Add(punto);

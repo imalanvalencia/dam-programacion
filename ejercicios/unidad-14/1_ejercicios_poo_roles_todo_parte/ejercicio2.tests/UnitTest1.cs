@@ -115,7 +115,7 @@ public class CursoTests
         
         // Act
         string result = curso.ACadena();
-        
+         
         // Assert
         Assert.Contains("Curso: Desarrollo de Aplicaciones Créditos: 120 - 2 estudiantes matriculados", result);
         Assert.Contains("Estudiantes:", result);
