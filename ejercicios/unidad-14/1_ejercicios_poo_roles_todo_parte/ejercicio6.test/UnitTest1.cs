@@ -1,4 +1,6 @@
-﻿namespace ejercicio6.tests;
+﻿
+
+namespace ejercicio6.tests;
 
 using System;
 using Xunit;

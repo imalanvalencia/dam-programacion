@@ -33,7 +33,7 @@ public class Propietario
     public string Nombre { get; }
     public DateOnly FechaNacimiento { get; }
 
-    public Propietario(string nombre, string dni, DateOnly fechaNacimiento)
+    public Propietario(string dni, string nombre, DateOnly fechaNacimiento)
     {
         Nombre = nombre;
         Dni = dni;
@@ -42,11 +42,7 @@ public class Propietario
 
 
 
-    public string ACadena() => $"""
-    Propietario: {Nombre}
-    DNI: {Dni}
-    Fecha de nacimiento: {FechaNacimiento:dd/MM/yyyy}
-    """;
+    public string ACadena() => $"{Nombre}\nDNI: {Dni}\nFecha de nacimiento: {FechaNacimiento:dd/MM/yyyy}";
 }
 
 
@@ -64,7 +60,7 @@ public class Telefono
 
     public Telefono(string numero, string marca, string modelo, DateOnly fechaCompra, Propietario propietario, CompañiaTelefonica compañia)
     {
-        Id = Guid.NewGuid();
+        Id = new();
         Marca = marca;
         Modelo = modelo;
         Numero = numero;
@@ -77,12 +73,13 @@ public class Telefono
     public void AñadeContacto(Contacto contacto) => Contactos.Add(contacto);
 
     public string ACadena() => $"""
-    Teléfono ID: {Id}
-    Marca: {Marca}
-    Modelo: {Modelo}
-    Fecha de compra: {FechaCompra}
-    Propietario: {Propietario.Nombre}
-    Compañía: {Compañia.Nombre}
+    Teléfono ID: {Numero}
+    Marca: {Marca}, Modelo: {Modelo}
+    Fecha de compra: {FechaCompra:dd/MM/yyyy}
+    Propietario: {Propietario.Nombre} (DNI: {Propietario.Dni})
+    Compañía: {Compañia.Nombre} ({Compañia.Codigo})
+    Contactos almacenados: {Contactos.Count}
+    {string.Join("\n    ", Contactos.Select(c => $"  - {c.Nombre}: {c.Telefono}"))}
     """;
 
 }
@@ -90,52 +87,41 @@ public class Telefono
 public class Program
 {
     //TODO: Implementa las clases necesarias y la relación entre ellas para resolver el ejercicio
-    /* 
 
-    Registrando teléfono en la compañía...
-    Teléfono registrado en Movistar
-    Teléfonos registrados en Movistar: 1
-
-    === ESTADO FINAL DEL SISTEMA ===
-    --- Teléfono ---
-    Teléfono ID: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-    Marca: iPhone, Modelo: 15 Pro
-    Fecha de compra: 15/08/2025
-    Propietario: Ana García (DNI: 12345678A)
-    Compañía: Movistar (ES001)
-    Contactos almacenados: 3
-      - Luis Pérez: 666111222
-      - María López: 677333444
-      - Pedro Ruiz: 688555666   
-    --- Compañía ---
-    Compañía: Movistar (ES001)
-    Teléfonos registrados: 1
-    Presiona cualquier tecla para salir...
-     */
     public static void GestionTelefono()
     {
         Console.WriteLine("Ejercicio 4: Sistema de gestión de teléfonos\n");
         //TODO: Implementar la lógica de gestión de teléfonos y contactos
-        System.Console.WriteLine("Creando propietario del teléfono...");
+        Console.WriteLine("Creando propietario del teléfono...");
         Propietario propietario = new Propietario("Ana García", "12345678A", new DateOnly(1990, 5, 15));
 
         CompañiaTelefonica movistar = new("ES001", "Movistar");
 
-        System.Console.WriteLine("Creando un nuevo teléfono...");
-        Telefono telefono = new("Samsung", "Galaxy S21", "123-456-7890", new(15, 8, 2025), propietario, movistar);
+        Console.WriteLine("Creando un nuevo teléfono...");
+        Telefono telefono = new("123-456-7890", "iPhone", "15 Pro", new DateOnly(2025, 8, 15), propietario, movistar);
 
-        System.Console.WriteLine("Añadiendo contactos al teléfono...");
-        /* 
-        Contacto añadido: Luis Pérez - 666111222
-        Contacto añadido: María López - 677333444
-        Contacto añadido: Pedro Ruiz - 688555666
-         */
-        
-        
-         
+        Console.WriteLine("Añadiendo contactos al teléfono...");
+        telefono.AñadeContacto(new Contacto("Luis Pérez", "666111222"));
+        Console.WriteLine("Contacto añadido: Luis Pérez - 666111222");
 
-        System.Console.WriteLine(telefono);
-        Console.WriteLine("\n\"Presiona cualquier tecla para salir...");
+        telefono.AñadeContacto(new Contacto("María López", "677333444"));
+        Console.WriteLine("Contacto añadido: María López - 677333444");
+
+        telefono.AñadeContacto(new Contacto("Pedro Ruiz", "688555666"));
+        Console.WriteLine("Contacto añadido: Pedro Ruiz - 688555666");
+
+        Console.WriteLine("\nRegistrando teléfono en la compañía...");
+        movistar.RegistraTelefono(telefono);
+        Console.WriteLine("Teléfono registrado en Movistar");
+        Console.WriteLine($"Teléfonos registrados en Movistar: {movistar.CantidadTelefonosRegistrados}");
+
+        Console.WriteLine("\n=== ESTADO FINAL DEL SISTEMA ===");
+        Console.WriteLine("--- Teléfono ---");
+        Console.WriteLine(telefono.ACadena());
+        Console.WriteLine("--- Compañía ---");
+        Console.WriteLine(movistar.ACadena());
+
+        Console.WriteLine("\nPresiona cualquier tecla para salir...");
         Console.ReadKey();
     }
 
