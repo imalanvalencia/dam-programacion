@@ -5,54 +5,9 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 
+
 namespace Ejercicio3
 {
-    public class Program
-    {
-        static void Main(string[] args)
-        {
-            GestionPersonajes();
-            Console.WriteLine("\nPresiona cualquier tecla para salir...");
-            Console.ReadKey();
-        }
-
-        public static void GestionPersonajes()
-        {
-            Console.WriteLine("Ejercicio 3: Sistema de Personajes\n");
-
-            // Habilidades para el Guerrero
-            var habilidadesGuerrero = new List<Habilidad>
-            {
-                new Habilidad("Furia", 50),
-                new Habilidad("Golpe Giratorio", 30)
-            };
-            Guerrero conan = new Guerrero("Conan", 100, habilidadesGuerrero, 20);
-            Console.WriteLine("=== Creando un Guerrero ===");
-            Console.WriteLine($"Guerrero creado: {conan.ACadena()} ");
-     
-            // Habilidades para el Mago
-            var habilidadesMago = new List<Habilidad>
-            {
-                new Habilidad("Rayo", 40),
-                new Habilidad("Bola de Fuego", 70),
-                new Habilidad("Escarcha", 25)
-            };
-            Mago gandalf = new Mago("Gandalf", 120, habilidadesMago, 50);
-            Console.WriteLine("=== Creando un Mago ===");
-            Console.WriteLine($"Mago creado: {gandalf.ACadena()}");
-           
-            // Añadir una habilidad más al mago
-            gandalf.AñadeHabilidad(new Habilidad("Telequinesis", 10));
-
-            Console.WriteLine($"Mago con nueva habilidad añadida: {gandalf.ACadena()}");
-
-            Console.WriteLine("=== Acciones de los personajes ===");
-            Console.WriteLine("--- Guerrero ---");
-            Console.WriteLine(conan.Ataca());
-            Console.WriteLine("\n--- Mago ---");
-            Console.WriteLine(gandalf.Ataca());
-        }
-    }
 
     public record Habilidad(string Nombre, int Daño);
 
@@ -152,4 +107,56 @@ namespace Ejercicio3
             return sb.ToString();
         }
     }
+
+    public class Program
+    {
+
+        public static void GestionPersonajes()
+        {
+            Console.WriteLine("Ejercicio 3: Sistema de Personajes\n");
+
+            // Habilidades para el Guerrero
+            var habilidadesGuerrero = new List<Habilidad>
+            {
+                new Habilidad("Furia", 50),
+                new Habilidad("Golpe Giratorio", 30)
+            };
+            Guerrero conan = new Guerrero("Conan", 100, habilidadesGuerrero, 20);
+            Console.WriteLine("=== Creando un Guerrero ===");
+            Console.WriteLine($"Guerrero creado: {conan.ACadena()} ");
+
+            // Habilidades para el Mago
+            var habilidadesMago = new List<Habilidad>
+            {
+                new Habilidad("Rayo", 40),
+                new Habilidad("Bola de Fuego", 70),
+                new Habilidad("Escarcha", 25)
+            };
+            Mago gandalf = new Mago("Gandalf", 120, habilidadesMago, 50);
+            Console.WriteLine("=== Creando un Mago ===");
+            Console.WriteLine($"Mago creado: {gandalf.ACadena()}");
+
+            // Añadir una habilidad más al mago
+            gandalf.AñadeHabilidad(new Habilidad("Telequinesis", 10));
+
+            Console.WriteLine($"Mago con nueva habilidad añadida: {gandalf.ACadena()}");
+
+            Console.WriteLine("=== Acciones de los personajes ===");
+            Console.WriteLine("--- Guerrero ---");
+            Console.WriteLine(conan.Ataca());
+            Console.WriteLine("\n--- Mago ---");
+            Console.WriteLine(gandalf.Ataca());
+        }
+
+        static void Main(string[] args)
+        {
+            GestionPersonajes();
+            Console.WriteLine("\nPresiona cualquier tecla para salir...");
+            Console.ReadKey();
+        }
+
+
+    }
+
+
 }
