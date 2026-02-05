@@ -95,7 +95,7 @@ namespace Ejercicio5
 
         public override string InformacionComplementaria()
         {
-            return "Clima previsto: Montañoso.";  
+            return "Clima previstox: Montañoso.";  
         }
     }
 
