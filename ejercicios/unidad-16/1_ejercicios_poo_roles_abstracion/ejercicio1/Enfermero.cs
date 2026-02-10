@@ -12,8 +12,15 @@ public class Enfermero : PersonalCuidados
     public override void AñadeTareaTurno(TareaTurno tarea) => Tareas.Add(tarea);
     public override string DescripcionRol() => $"Supervisa y administra medicación a los pacientes";
     public override string GestionaTurno(DateTime horaActual)
-    {
-        return base.GestionaTurno(horaActual);
+   {
+        foreach (var t in Tareas)
+        {
+            if (t.Hora <= horaActual.TimeOfDay)
+            {
+                return $"[{t.Hora:hh\\:mm}] Enfermero: {t.Descripcion}";
+            }
+        }
+        return "No hay tareas asignadas para el momento actual.";
     }
 
     public override string ToString() => $"""

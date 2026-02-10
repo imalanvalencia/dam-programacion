@@ -22,12 +22,19 @@ public abstract class PersonalCuidados
         {
             if (t.Hora <= horaActual.TimeOfDay)
             {
-                return $"[{t.Hora:hh\\:mm}] Cuidador: {t.Descripcion}";
+                return $"[{t.Hora:hh\\:mm}] {DescripcionRol()}: {t.Descripcion}";
             }
         }
         return "No hay tareas asignadas para el momento actual.";
     }
 
-    public override string ToString() => "Hola empleado";
-
+    public override string ToString() => $"""
+    Personal: {Nombre} - Rol: Enfermero
+    Turno: {Turno}
+    Descripción: {DescripcionRol()}.
+       - Tareas asignadas:
+        {Tareas.ConvertAll(
+            t => GestionaTurno(new DateTime(2025, 9, 10, t.Hora.Hours, t.Hora.Minutes, t.Hora.Seconds))).Aggregate((a, b) => a + "\n        " + b
+        )}
+    """;
 }
