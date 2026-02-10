@@ -7,6 +7,7 @@ public interface IEntrenamientoDeportivo
 {
   string Deporte {get;}
   int DuracionMinutos {get;} // DuracionMinutos * intensidad * factor
+  float Factor {get;}
   int Intensidad {get;}
   double CaloriasEstimadas {get;}
   void IniciaSesion();
@@ -17,12 +18,13 @@ public class Sentadillas: IEntrenamientoDeportivo, IComparable
 {
   public enum TipoSentadillas {Basica=1, Bulgara=2, Salto=4, Peso=7}
 
+  public float Factor => 1.3f;
   public DateTime Fecha { get; }
   public TipoSentadillas Tipo { get; }
   public string Deporte => "Sentadillas";
   public int DuracionMinutos { get; set; }
   public int Intensidad { get; private set; }
-  public double CaloriasEstimadas => DuracionMinutos * Intensidad * 1.3f;
+  public double CaloriasEstimadas => DuracionMinutos * Intensidad * Factor + (int)Tipo; 
 
   public DateTime InicioSesion { get; private set; }
 
@@ -59,11 +61,12 @@ public class Sentadillas: IEntrenamientoDeportivo, IComparable
 
 public class Running: IEntrenamientoDeportivo, IComparable
 {
+  public float Factor => 1.2f;
   public double DistanciaKm { get; private set; }
   public string Deporte => "Running";
   public int DuracionMinutos { get; set; }
   public int Intensidad { get; private set; }
-  public double CaloriasEstimadas => DuracionMinutos * Intensidad * 1.1f;
+  public double CaloriasEstimadas => DuracionMinutos* Intensidad * Factor + DistanciaKm * 10;
   public DateTime Fecha { get; private set; }
   public DateTime InicioSesion { get; private set; }
 
