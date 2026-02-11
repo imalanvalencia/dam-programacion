@@ -7,21 +7,21 @@ public class TestsFormularios
     [Fact(DisplayName = "Estudiante con estudios inválidos produce error")]
     public void EstudianteEstudiosInvalidos()
     {
-        var est = new Estudiante { Dni = "12345678A", Nombre = "Ana", FechaNacimiento = DateTime.Today.AddYears(-15), Estudios = "Informática" };
+        var est = new Estudiante ("12345678A", "Ana", DateTime.Today.AddYears(-15), "Informática" );
         Assert.IsType<Validacion.Error>(est.Validacion);
     }
 
     [Fact(DisplayName = "Profesor correcto valida Exito")]
     public void ProfesorValido()
     {
-        var prof = new Profesor { Dni = "87654321B", Nombre = "Luis", FechaNacimiento = new DateTime(1980,11,20), Especialidad = "Matemáticas", Departamento = "INFO" };
+        var prof = new Profesor ("87654321B", "Luis", new DateTime(1980,11,20), "Matemáticas", "INFO");
         Assert.IsType<Validacion.Exito>(prof.Validacion);
     }
 
     [Fact(DisplayName = "DNI vacío da error")]
     public void DniVacioError()
     {
-        var est = new Estudiante { Dni = "", Nombre = "Pedro", FechaNacimiento = DateTime.Today.AddYears(-15), Estudios = "DAM" };
+        var est = new Estudiante ("", "Pedro", DateTime.Today.AddYears(-15), "DAM");
         Assert.IsType<Validacion.Error>(est.Validacion);
     }
 

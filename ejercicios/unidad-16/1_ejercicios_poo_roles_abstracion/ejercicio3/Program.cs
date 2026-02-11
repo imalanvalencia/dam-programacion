@@ -13,17 +13,17 @@ public static class Validador
 	public static Validacion ValidaDni(string dni) =>
 		!string.IsNullOrWhiteSpace(dni) && dni.Length == 9
 			? new Validacion.Exito()
-			: new Validacion.Error("INCORRECTO: El DNI debe tener 9 caracteres.");
+			: new Validacion.Error("El DNI debe tener 9 caracteres.");
 
 	public static Validacion ValidaNombre(string nombre) =>
 		!string.IsNullOrWhiteSpace(nombre)
 			? new Validacion.Exito()
-			: new Validacion.Error("INCORRECTO: El nombre no puede estar vacío.");
+			: new Validacion.Error("El nombre no puede estar vacío.");
 
 	public static Validacion ValidaFechaNacimiento(DateTime fecha) =>
 		fecha < DateTime.Today.AddYears(-10)
 			? new Validacion.Exito()
-			: new Validacion.Error("INCORRECTO: La fecha de nacimiento no es válida.");
+			: new Validacion.Error("La fecha de nacimiento no es válida.");
 }
 
 public abstract class Formulario
@@ -68,7 +68,7 @@ public class Estudiante : Formulario
 		{          
 			if (base.Validacion is Validacion.Error errorPadre) return errorPadre;
 			if (Enum.IsDefined(typeof(EstudiosEnum), Estudios)) return new Validacion.Exito();
-			return new Validacion.Error("INCORRECTO: Los estudios no son válidos.");
+			return new Validacion.Error("Los estudios no están definidos");
 		}
 	}
 }
@@ -89,9 +89,9 @@ public class Profesor : Formulario
 		get
 		{
 			if (base.Validacion is Validacion.Error errorBase) return errorBase;
-			if (string.IsNullOrWhiteSpace(Especialidad)) return new Validacion.Error("INCORRECTO: La especialidad no puede estar vacía.");
-			if (string.IsNullOrWhiteSpace(Departamento)) return new Validacion.Error("INCORRECTO: El departamento no puede estar vacío.");
-			if (Departamento.Length < 4) return new Validacion.Error("INCORRECTO: El departamento debe tener al menos cuatro caracteres.");
+			if (string.IsNullOrWhiteSpace(Especialidad)) return new Validacion.Error("La especialidad no puede estar vacía.");
+			if (string.IsNullOrWhiteSpace(Departamento)) return new Validacion.Error("El departamento no puede estar vacío.");
+			if (Departamento.Length < 4) return new Validacion.Error("El departamento debe tener al menos cuatro caracteres.");
 			return new Validacion.Exito();
 		}
 	}
@@ -110,8 +110,45 @@ public class Program
 	public static void GestionaFormularios()
 	{
 		Console.WriteLine("Ejercicio 3: Validación de formularios\n\nPara las entradas de datos...");
-		//TODO: Añade el código necesario para implementar los requisitos del método
 		
-		Console.WriteLine("Presiona cualquier tecla para salir...");
+		// Estudiante 1: Estudios inválidos
+		var est1 = new Estudiante("12345678A", "Ana Ruiz", new DateTime(2005, 5, 10), "Informática");
+		Console.WriteLine($"Estudiante: DNI={est1.Dni}, Nombre={est1.Nombre}, FechaNacimiento={est1.FechaNacimiento:dd/MM/yyyy}, Estudios={est1.Estudios}");
+		if (est1.Validacion is Validacion.Exito)
+		{
+			Console.WriteLine("    Validación: CORRECTO");
+		}
+		else if (est1.Validacion is Validacion.Error error)
+		{
+			Console.WriteLine($"    Validación: INCORRECTO -> {error.Mensaje}");
+		}
+		Console.WriteLine();
+
+		// Estudiante 2: DNI vacío
+		var est2 = new Estudiante("", "Pedro", new DateTime(2005, 5, 10), "DAM");
+		Console.WriteLine($"Estudiante: DNI={est2.Dni}, Nombre={est2.Nombre}, FechaNacimiento={est2.FechaNacimiento:dd/MM/yyyy}, Estudios={est2.Estudios}");
+		if (est2.Validacion is Validacion.Exito)
+		{
+			Console.WriteLine("    Validación: CORRECTO");
+		}
+		else if (est2.Validacion is Validacion.Error error)
+		{
+			Console.WriteLine($"    Validación: INCORRECTO -> {error.Mensaje}");
+		}
+		Console.WriteLine();
+
+		// Profesor válido
+		var prof = new Profesor("87654321B", "Luis Pérez", new DateTime(1980, 11, 20), "Matemáticas", "FISC");
+		Console.WriteLine($"Profesor: DNI={prof.Dni}, Nombre={prof.Nombre}, FechaNacimiento={prof.FechaNacimiento:dd/MM/yyyy}, Especialidad={prof.Especialidad}, Departamento={prof.Departamento}");
+		if (prof.Validacion is Validacion.Exito)
+		{
+			Console.WriteLine($"    Validación: CORRECTO -> El profesor {prof.Nombre} con DNI: {prof.Dni} y de la especialidad de {prof.Especialidad.ToLower()} 'ha sido añadido al sistema'.");
+		}
+		else if (prof.Validacion is Validacion.Error error)
+		{
+			Console.WriteLine($"    Validación: INCORRECTO -> {error.Mensaje}");
+		}
+		
+		Console.WriteLine("\nPresiona cualquier tecla para salir...");
 	}
 }
