@@ -3,7 +3,6 @@ public class ContenedorException(string message) : Exception(message);
 public class ContenedorLecturas<T> where T : IComparable<T>
 {
     private List<T> _contenedor = [];
-    public IReadOnlyList<T> Lecturas => _contenedor.AsReadOnly();
     public int Conteo => _contenedor.Count;
 
 
@@ -32,12 +31,10 @@ public class ContenedorLecturas<T> where T : IComparable<T>
     {
         foreach (T item in _contenedor)
         {
-            if (item.CompareTo(lectura) != 0)
-            {
-                _contenedor.Add(lectura);
-                return;
-            }
+            if (item.CompareTo(lectura) == 0) return;
         }
+        
+        _contenedor.Add(lectura);
 
     }
 
@@ -55,9 +52,9 @@ public class ContenedorLecturas<T> where T : IComparable<T>
     public void AgregaRango(ContenedorLecturas<T> otro)
     {
         if (otro != null)
-            foreach (var item in otro.Lecturas)
+            for (int i = 0; i < otro.Conteo; i++)
             {
-                Agrega(item);
+                Agrega(otro.LecturaIndice(i));
             }
     }
 }
