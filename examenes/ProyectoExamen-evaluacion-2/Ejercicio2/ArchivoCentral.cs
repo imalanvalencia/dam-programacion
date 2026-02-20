@@ -102,7 +102,7 @@ public class ArchivoCentral
 
     public List<Artefacto> ObtieneInventarioOrdenado()
     {
-        Artefacto[] artefactosOrdenados = [.. Hallazgos];
+        Artefacto[] artefactosOrdenados = [..Hallazgos];
 
         Array.Sort(artefactosOrdenados);
 
