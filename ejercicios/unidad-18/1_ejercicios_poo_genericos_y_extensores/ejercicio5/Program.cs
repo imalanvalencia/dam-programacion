@@ -1,8 +1,88 @@
-﻿
 using System.Text;
 using System.Collections.Generic;
 
-//TODO: Incluye el código necesario para implementar las entidades que se piden en el ejercicio
+public enum TipoIngrediente
+{
+    Proteina,
+    Carbohidrato,
+    Grasa,
+    Vegetal,
+    Fruta,
+    Especia,
+    Liquido
+}
+
+public record Ingrediente(string Nombre, string Unidad, TipoIngrediente Tipo, double CaloriasPorGramo)
+{
+    public override string ToString() => Nombre;
+}
+
+public record IngredienteReceta(string Nombre, string Unidad, TipoIngrediente Tipo, double CaloriasPorGramo, int CantidadUsada, double CaloriasTotales);
+
+public static class IngredienteExtension
+{
+    public static IngredienteReceta ToIngrediente(this Ingrediente ingrediente, int cantidadUsada)
+    {
+        double caloricasTotales = cantidadUsada * ingrediente.CaloriasPorGramo;
+        return new IngredienteReceta(
+            ingrediente.Nombre,
+            ingrediente.Unidad,
+            ingrediente.Tipo,
+            ingrediente.CaloriasPorGramo,
+            cantidadUsada,
+            caloricasTotales
+        );
+    }
+}
+
+public static class IngredienteRecetaExtension
+{
+    public static Ingrediente ToIngrediente(this IngredienteReceta receta)
+    {
+        return new Ingrediente(receta.Nombre, receta.Unidad, receta.Tipo, receta.CaloriasPorGramo);
+    }
+}
+
+public class Receta
+{
+    public string Nombre { get; }
+    public List<IngredienteReceta> Ingredientes { get; } = new List<IngredienteReceta>();
+
+    public Receta(string nombre)
+    {
+        Nombre = nombre;
+    }
+
+    public void AgregaIngrediente(Ingrediente ingrediente, int cantidadUsada)
+    {
+        IngredienteReceta ir = ingrediente.ToIngrediente(cantidadUsada);
+        Ingredientes.Add(ir);
+    }
+
+    public List<Ingrediente> ListaIngredientes()
+    {
+        return Ingredientes.Select(ir => ir.ToIngrediente()).ToList();
+    }
+
+    public double CaloriasTotales()
+    {
+        return Ingredientes.Sum(ir => ir.CaloriasTotales);
+    }
+
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine($"Receta: {Nombre}");
+        sb.AppendLine("Ingredientes:");
+        foreach (var ing in Ingredientes)
+        {
+            sb.AppendLine($"    - {ing.CantidadUsada} {ing.Unidad} de {ing.Nombre} ({ing.CaloriasTotales:F2} calorías)");
+        }
+        sb.AppendLine($"Calorías totales: {CaloriasTotales():F2}");
+        return sb.ToString();
+    }
+}
+
 public class Program
 {
     private static void Main(string[] args)
@@ -28,6 +108,5 @@ public class Program
             Console.WriteLine(ing);
         }
         Console.WriteLine("Presiona una tecla para finalizar...");
-        Console.ReadKey(true);
     }
 }

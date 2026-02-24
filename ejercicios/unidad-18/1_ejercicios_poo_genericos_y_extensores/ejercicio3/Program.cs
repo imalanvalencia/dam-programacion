@@ -1,5 +1,51 @@
-﻿
+
 //TODO: Incluye el código necesario para implementar las entidades que se piden en el ejercicio
+
+public static class Comparador
+{
+    public static bool Mayor<T>(T a, T b) where T : IComparable<T>
+    {
+        return a.CompareTo(b) > 0;
+    }
+
+    public static bool Menor<T>(T a, T b) where T : IComparable<T>
+    {
+        return a.CompareTo(b) < 0;
+    }
+}
+
+public class Persona : IComparable<Persona>, ICloneable
+{
+    public string Nombre { get; set; }
+    public int Edad { get; set; }
+
+    public Persona(string nombre, int edad)
+    {
+        Nombre = nombre;
+        Edad = edad;
+    }
+
+    public override string ToString()
+    {
+        return $"Nombre: {Nombre}, Edad: {Edad} años.";
+    }
+
+    public int CompareTo(Persona? other)
+    {
+        if (other == null) return 1;
+        
+        int comparacionNombre = string.Compare(Nombre, other.Nombre, StringComparison.Ordinal);
+        if (comparacionNombre != 0)
+            return comparacionNombre;
+        
+        return Edad.CompareTo(other.Edad);
+    }
+
+    public object Clone()
+    {
+        return new Persona(Nombre, Edad);
+    }
+}
 
 public class Ej03_PersonaICloneable
 {
@@ -33,7 +79,6 @@ public class Ej03_PersonaICloneable
         Console.WriteLine($"{Comparador.Menor(p3, p1)}");
 
         Console.WriteLine("\nFin de la aplicación.");
-        Console.ReadKey();
     }
 }
 
