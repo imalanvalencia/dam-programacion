@@ -1,8 +1,9 @@
 namespace Ejercicio4;
+using StringExtensions;
 
 public class Bombilla : IAvisador
 {
-    ConsoleColor ColorBombilla;
+    ConsoleColor ColorBombilla {get;}
     public bool Estado { get;  set; }
 
     public Bombilla(ConsoleColor color)
@@ -10,7 +11,7 @@ public class Bombilla : IAvisador
         ColorBombilla = color;
     }
 
-    private string Bombilla => """
+    private string BombillaStr => """
         ___,-----.___
     ,--'             `--.
    /                     \
@@ -40,15 +41,13 @@ public class Bombilla : IAvisador
     public void Activa()
     {
         Estado = true;
-        Bombilla.Gris();
+        BombillaStr.Color(ColorBombilla);
         Console.WriteLine("LUZ ON... Luz encendida ...");
-        Console.ForegroundColor = ConsoleColor.White;
     }
 
     public void Desactiva()
     {
         Estado = false;
-        Console.WriteLine("LUZ OFF (apagada)");
-        Console.ForegroundColor = ConsoleColor.White;
+        "LUZ OFF (apagada)".Gris();
     }
 }

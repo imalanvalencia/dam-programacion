@@ -30,16 +30,8 @@ public class Persona : IComparable<Persona>, ICloneable
         return $"Nombre: {Nombre}, Edad: {Edad} años.";
     }
 
-    public int CompareTo(Persona? other)
-    {
-        if (other == null) return 1;
-        
-        int comparacionNombre = string.Compare(Nombre, other.Nombre, StringComparison.Ordinal);
-        if (comparacionNombre != 0)
-            return comparacionNombre;
-        
-        return Edad.CompareTo(other.Edad);
-    }
+    public int CompareTo(Persona? other) => Edad.CompareTo(other?.Edad);
+    
 
     public object Clone()
     {
