@@ -1,3 +1,5 @@
+namespace Ejercicio4;
+
 public interface ISensor<T>
 {
     T ValorActual { get; }

@@ -5,9 +5,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace Ejercicio4
 {
     //TODO: Incluye el código necesario para implementar las entidades que se piden en el ejercicio
+    
 
     public class Program
     {

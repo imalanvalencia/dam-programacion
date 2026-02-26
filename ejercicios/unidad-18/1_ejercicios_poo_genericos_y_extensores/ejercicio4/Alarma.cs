@@ -1,17 +1,24 @@
 using System.Globalization;
+namespace Ejercicio4;
 
-public class Alarma<T> where T : IComparable<T>
+public class Alarma<T, K> where T : IComparable<T> where K : IAvisador
 {
     bool encendida;
     public bool Activada { get; private set; }
     public ISensor<T> Sensor { get; }
     public T Umbral { get; }
 
-    public Alarma(T umbral, ISensor<T> sensor)
+    public List<K> Avisadores { get; private set; }
+
+    public Alarma(T umbral, ISensor<T> sensor, K avisador)
     {
         Sensor = sensor;
         Umbral = umbral;
+        Avisadores = [avisador];
     }
+
+    public void AñadeAvisador(K avisador) => Avisadores.Add(avisador);
+
 
     public void Enciende()
     {
@@ -22,30 +29,29 @@ public class Alarma<T> where T : IComparable<T>
     public void Apaga()
     {
         encendida = false;
-        Console.WriteLine("Alarma apagada.");
+        Console.WriteLine("Apagando alarmas.");
     }
+
     public virtual void Activa()
     {
-
         Activada = true;
 
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine($"[ROJO] ACTIVA [/ROJO]");
-
-
-        Console.ForegroundColor = ConsoleColor.White;
+        foreach (var avisador in Avisadores)
+        {
+            Console.Write($" Activando {EtiquetaAvisador(avisador)} ");
+            avisador.Activa();
+        }
     }
 
     public virtual void Desactiva()
     {
-
         Activada = false;
 
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($"[Verde] DESACTIVA [/Verde]");
-
-
-        Console.ForegroundColor = ConsoleColor.White;
+        foreach (var avisador in Avisadores)
+        {
+            Console.Write($" Desactivando {EtiquetaAvisador(avisador)} ");
+            avisador.Desactiva();
+        }
     }
 
     public void Comprueba()
@@ -55,7 +61,7 @@ public class Alarma<T> where T : IComparable<T>
             T valor = Sensor.ValorActual;
             string texto = FormateaValor(valor);
 
-            Console.Write($"Valor leído: {texto} -> ");
+            Console.Write($"Lectura: {texto} => ");
 
             if (Umbral.CompareTo(valor) < 0)
             {
@@ -91,7 +97,17 @@ public class Alarma<T> where T : IComparable<T>
 
             Thread.Sleep(1000);
         }
+
+
     }
+
+    static string EtiquetaAvisador(K avisador) => avisador switch
+    {
+        Timbre => "TIMBRE",
+        Bombilla => "LUZ",
+        Llamada => "LLAMADA",
+        _ => "DESCONOCIDO"
+    };
 
     private static string FormateaValor(T valor)
     {
