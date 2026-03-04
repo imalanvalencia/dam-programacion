@@ -4,7 +4,8 @@ using System.Linq;
 
 namespace ejercicio6
 {
-    public record Usuario(string UserName, string NombreCompleto, DateOnly FechaRegistro);
+
+    public record Usuario(string Username, string NombreCompleto, DateOnly FechaRegistro);
 
     public class Publicacion : IEquatable<Publicacion>, IComparable<Publicacion>
     {
@@ -20,7 +21,7 @@ namespace ejercicio6
             Autor = autor;
             Contenido = contenido;
             Likes = likes;
-            Comentarios = new List<string>();
+            Comentarios = [];
         }
 
         public bool Equals(Publicacion? other)
@@ -52,10 +53,7 @@ namespace ejercicio6
             return x.Id == y.Id;
         }
 
-        public int GetHashCode(Publicacion obj)
-        {
-            return obj.Id.GetHashCode();
-        }
+        public int GetHashCode(Publicacion obj) => obj.Id.GetHashCode();
     }
 
     public class PublicacionComparer : IComparer<Publicacion>
@@ -69,68 +67,61 @@ namespace ejercicio6
 
     public class RedSocial
     {
-        public List<Usuario> Usuarios { get; set; }
-        public List<Publicacion> Publicaciones { get; set; }
+        public class RedSocialException(string message) : Exception(message);
+
+        public Dictionary<string, Usuario> Usuarios { get; set; }
+        public SortedDictionary<DateTime, Publicacion> Publicaciones { get; set; }
+        public Dictionary<string, List<long>> PublicacionesPorUsuario { get; set; }
 
         public RedSocial()
         {
-            Usuarios = new List<Usuario>();
-            Publicaciones = new List<Publicacion>();
+            Usuarios = [];
+            Publicaciones = [];
+            PublicacionesPorUsuario = [];
         }
 
         public void RegistraUsuario(Usuario usuario)
         {
-            Usuarios.Add(usuario);
+            if (Usuarios.ContainsKey(usuario.Username)) throw new RedSocialException("El usuario ya existe.");
+
+            Usuarios.Add(usuario.Username, usuario);
+            PublicacionesPorUsuario.Add(usuario.Username, []);
+        }
+
+        void AñadePublicacionAUsuario(Usuario usuario, long idPublicacion)
+        {
+            if (!Usuarios.ContainsKey(usuario.Username)) throw new RedSocialException("El usuario de la publicación no existe.");
+            PublicacionesPorUsuario[usuario.Username].Add(idPublicacion);
         }
 
         public void AñadePublicacion(Publicacion publicacion)
         {
-            Publicaciones.Add(publicacion);
-        }
-
-        public bool EstaPublicacion(Publicacion publicacion)
-        {
-            return Publicaciones.Contains(publicacion);
-        }
-
-        public bool EstaPublicacionComparer(Publicacion publicacion)
-        {
-            return Publicaciones.Contains(publicacion, new PublicacionEqualityComparer());
-        }
-
-        public bool EstaUsuario(Usuario usuario)
-        {
-            return Usuarios.Contains(usuario);
-        }
-
-        public int BuscaPublicacion(Publicacion publicacion)
-        {
-            return Publicaciones.BinarySearch(publicacion);
-        }
-
-        public int BuscaPublicacionIComparer(Publicacion publicacion)
-        {
-            return Publicaciones.BinarySearch(publicacion, new PublicacionComparer());
+            AñadePublicacionAUsuario(publicacion.Autor, publicacion.Id.Ticks);
+            Publicaciones.Add(publicacion.Id, publicacion);
         }
 
         public void MostrarTodasPublicaciones()
         {
-            foreach (var p in Publicaciones)
+            foreach (var p in Publicaciones.Values)
             {
-                Console.WriteLine($"{p.Id:dd/MM/yyyy HH:mm:ss} - {p.Autor.UserName}: {p.Contenido} ({p.Likes} likes)");
+                Console.WriteLine($"{p.Id:dd/MM/yyyy HH:mm:ss} - {p.Autor.Username}: {p.Contenido} ({p.Likes} likes)");
             }
         }
 
-        public void MostrarPublicacionesUsuario(string userName)
+        public void MostrarPublicacionesUsuario(string username)
         {
-            foreach (var p in Publicaciones.Where(p => p.Autor.UserName == userName))
+            foreach (var pUser in Publicaciones.Values)
             {
-                Console.WriteLine($"{p.Id:dd/MM/yyyy HH:mm:ss} - {p.Autor.UserName}: {p.Contenido} ({p.Likes} likes)");
+                if (pUser.Autor.Username == username)
+                    Console.WriteLine($"{pUser.Id:dd/MM/yyyy HH:mm:ss} - {pUser.Autor.Username}: {pUser.Contenido} ({pUser.Likes} likes)");
+
             }
         }
     }
 
-    internal class Program
+
+
+    public class Program
     {
         private static void Main(string[] args)
         {
@@ -162,7 +153,6 @@ namespace ejercicio6
             Console.WriteLine($"¿Existe el usuario user1? {redSocial.EstaUsuario(u1)}");
 
             Console.WriteLine("\n--- Parte 3: Búsqueda Binaria ---");
-            redSocial.Publicaciones.Sort();
             Console.WriteLine("Lista ordenada por fecha.");
             Console.WriteLine($"Posición encontrada (BinarySearch): {redSocial.BuscaPublicacion(p3) + 1}");
             Console.WriteLine($"Posición encontrada (BinarySearch con IComparer): {redSocial.BuscaPublicacionIComparer(p3) + 1}");
