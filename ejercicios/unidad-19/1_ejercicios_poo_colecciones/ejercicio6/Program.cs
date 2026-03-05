@@ -91,6 +91,8 @@ namespace ejercicio6
         void AñadePublicacionAUsuario(Usuario usuario, long idPublicacion)
         {
             if (!Usuarios.ContainsKey(usuario.Username)) throw new RedSocialException("El usuario de la publicación no existe.");
+            if (PublicacionesPorUsuario[usuario.Username].Contains(idPublicacion)) throw new RedSocialException("La publicación ya existe para este usuario.");
+
             PublicacionesPorUsuario[usuario.Username].Add(idPublicacion);
         }
 
@@ -110,7 +112,7 @@ namespace ejercicio6
 
         public void MostrarPublicacionesUsuario(string username)
         {
-            foreach (var pUser in Publicaciones.Values)
+            foreach (Publicacion pUser in Publicaciones.Values)
             {
                 if (pUser.Autor.Username == username)
                     Console.WriteLine($"{pUser.Id:dd/MM/yyyy HH:mm:ss} - {pUser.Autor.Username}: {pUser.Contenido} ({pUser.Likes} likes)");
@@ -121,44 +123,50 @@ namespace ejercicio6
 
 
 
-    public class Program
+    internal class Program
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine("Ejercicio 3. Comparación y Búsqueda en Colecciones");
-            Console.WriteLine();
-
+            Console.WriteLine("Ejercicio 6. Red Social con Diccionarios");
             RedSocial redSocial = new RedSocial();
 
-            Usuario u1 = new Usuario("user1", "Usuario Uno", DateOnly.FromDateTime(DateTime.Now));
-            Usuario u2 = new Usuario("user2", "Usuario Dos", DateOnly.FromDateTime(DateTime.Now));
+            Usuario u1 = new("dev_master", "Juan Perez", DateOnly.FromDateTime(DateTime.Now));
+            Usuario u2 = new("code_ninja", "Maria Garcia", DateOnly.FromDateTime(DateTime.Now));
 
-            redSocial.RegistraUsuario(u1);
-            redSocial.RegistraUsuario(u2);
+            try
+            {
+                redSocial.RegistraUsuario(u1);
+                redSocial.RegistraUsuario(u2);
+                Console.WriteLine("Usuarios registrados correctamente.");
 
-            DateTime fechaBuscada = new DateTime(2025, 12, 29, 9, 11, 0);
-            Publicacion p1 = new Publicacion(DateTime.Now.AddHours(-2), u1, "Contenido 1", 10);
-            Publicacion p2 = new Publicacion(DateTime.Now.AddHours(-1), u2, "Contenido 2", 20);
-            Publicacion p3 = new Publicacion(fechaBuscada, u1, "Contenido 3", 5);
+                Publicacion p1 = new Publicacion(DateTime.Now.AddMinutes(-10), u1, "Hola mundo!", 5);
+                Publicacion p2 = new Publicacion(DateTime.Now.AddMinutes(-5), u2, "Aprendiendo C#", 10);
+                Publicacion p3 = new Publicacion(DateTime.Now, u1, "Diccionarios son útiles", 3);
 
-            redSocial.AñadePublicacion(p3);
-            redSocial.AñadePublicacion(p1);
-            redSocial.AñadePublicacion(p2);
+                redSocial.AñadePublicacion(p1);
+                redSocial.AñadePublicacion(p2);
+                redSocial.AñadePublicacion(p3);
+                Console.WriteLine("Publicaciones añadidas.");
 
-            Console.WriteLine("--- Parte 1: Búsqueda lineal con Contains ---");
-            Console.WriteLine($"¿Existe la publicación {fechaBuscada}? {redSocial.EstaPublicacion(p3)}");
-            Console.WriteLine($"¿Existe con EqualityComparer? {redSocial.EstaPublicacionComparer(p3)}");
+                Console.WriteLine();
+                redSocial.MostrarTodasPublicaciones();
 
-            Console.WriteLine("\n--- Parte 2: Búsqueda de Usuarios ---");
-            Console.WriteLine($"¿Existe el usuario user1? {redSocial.EstaUsuario(u1)}");
+                Console.WriteLine();
+                redSocial.MostrarPublicacionesUsuario("dev_master");
 
-            Console.WriteLine("\n--- Parte 3: Búsqueda Binaria ---");
-            Console.WriteLine("Lista ordenada por fecha.");
-            Console.WriteLine($"Posición encontrada (BinarySearch): {redSocial.BuscaPublicacion(p3) + 1}");
-            Console.WriteLine($"Posición encontrada (BinarySearch con IComparer): {redSocial.BuscaPublicacionIComparer(p3) + 1}");
+                Console.WriteLine();
+                redSocial.MostrarPublicacionesUsuario("code_ninja");
 
-            Console.WriteLine("\nPulsar Enter para salir...");
-            Console.ReadLine();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                Console.WriteLine("\nPulsar Enter para salir...");
+                Console.ReadLine();
+            }
         }
     }
 }

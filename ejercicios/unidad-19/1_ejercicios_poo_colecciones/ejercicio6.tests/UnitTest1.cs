@@ -51,7 +51,7 @@ namespace ejercicio6.tests
 
             Assert.Throws<RedSocial.RedSocialException>(() => redSocial.AñadePublicacion(p1));
         }
-
+        
         [Fact]
         public void AnadePublicacion_DeberiaLanzarExcepcion_CuandoUsuarioNoExiste()
         {

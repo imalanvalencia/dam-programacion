@@ -8,7 +8,6 @@ namespace ejercicio7.tests
     public class UnitTest1
     {
         [Fact]
-        public void Cancion_Equals_ComparaPorTitulo()
         {
             var c1 = new Cancion("T", "A", TimeSpan.Zero);
             var c2 = new Cancion("T", "B", TimeSpan.Zero);
