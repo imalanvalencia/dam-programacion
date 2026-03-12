@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run Tests for Ejercicio 3",
+			"type": "shell",
+			"command": "dotnet",
+			"args": [
+				"test",
+				"g:\\TRABAJO\\MODULOS\\PROG\\PROGRAMACIONDAM\\u20_programacion_funcional\\ejercicios\\2_ejercicios\\solucion\\2_ejercicios_programacion_funcional\\ejercicio3.tests\\ejercicio3.tests.csproj"
+			],
+			"isBackground": false,
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "test"
+		}
+	]
+}
