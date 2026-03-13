@@ -2,17 +2,56 @@
 
 namespace Ejercicio1
 {
+    public class BibliotecaException(string message) : Exception(message);
 
     public record Libro(string Titulo, string Autor, string Editorial, int NumPaginas, string ISBN, string Reseña)
     {
-        public override string ToString()
-        {
-            return $"Título: {Titulo}, Autor: {Autor}, Editorial: {Editorial}, ISBN: {ISBN}, Nº Páginas: {NumPaginas}, Reseña: {Reseña}";
-        }
+        public override string ToString() => new { Titulo, Autor, ISBN }.ToString()!;
+
     }
 
 
     /// TODO: Completar la clase Biblioteca con los métodos indicados en el enunciado
+    public class Biblioteca
+    {
+        public record LibroAutor(string Autor, string Titulo);
+
+        public string Nombre { get; set; }
+        public List<Libro> Libros { get; set; }
+        public List<string> Prestamos { get; set; }
+
+        public Biblioteca(string nombre, List<Libro> libros)
+        {
+            Nombre = nombre;
+            Libros = libros;
+            Prestamos = [];
+        }
+
+        public Libro? BuscaPorISBN(string isbn)
+        {
+            bool TieneISBN(Libro libro) => libro.ISBN == isbn;
+            return Libros.Find(TieneISBN);
+        }
+
+        public void Presta(string dni, string isbn)
+        {
+            Libro libro = BuscaPorISBN(isbn) ?? throw new BibliotecaException("Libro no encontrado");
+
+
+            var prestamo = new { DNI = dni, Titulo = libro.Titulo, ISBN = libro.ISBN };
+
+            Prestamos.Add(prestamo.ToString()!);
+        }
+
+        public bool EstaPrestado(string isbn) => Prestamos.Any(prestamo => prestamo.Contains(isbn));
+        public int CuentaLibrosConNumeroDePaginasMenorA(int numPaginas) => Libros.Count(libro => libro.NumPaginas < numPaginas);
+        public void EliminaPorAutor(string autor) => Libros.RemoveAll(libro => libro.Autor == autor);
+        public LibroAutor AutorTitulo(string isbn)
+        {
+            Libro libro = BuscaPorISBN(isbn);
+            return new LibroAutor(libro.Autor, libro.Titulo);
+        }
+    }
 
 
     class Program
