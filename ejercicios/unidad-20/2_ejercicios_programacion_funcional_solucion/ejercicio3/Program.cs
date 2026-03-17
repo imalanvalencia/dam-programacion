@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Ejercicio3
@@ -13,7 +13,10 @@ namespace Ejercicio3
         }
 
         ///TODO: Implementar el método EsMultiploDe_ConClausura
+        public static Func<int, Predicate<int>> EsMultiploDe_ConClausura = n => (x) => n % x == 0;
         /// TODO: Implementar el método EsMultiploDe_SinClausura
+        public static Func<int, int, bool> EsMultiploDe_SinClausura = (x, n) => x % n == 0;
+
         public static void Main()
         {
             List<int> lista = new List<int>() { 2, 4, 12, 3, 18, 4, 7, 6, 21, 33, 17, 30, 27 };
@@ -33,7 +36,7 @@ namespace Ejercicio3
             }
 
             Pausa($"Múltiplos de {n} - Sin usar Clausuras");
-            lista.ForEach(x => Console.Write((EsMultiploDe_SinClausura(x, n) ? $"{x} " : "")));
+            lista.ForEach(x => Console.Write(EsMultiploDe_SinClausura(x, n) ? $"{x} " : ""));
 
             Pausa("");
         }

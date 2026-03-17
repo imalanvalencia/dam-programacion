@@ -8,8 +8,17 @@ using System.Linq;
 
 namespace Ejercicio4
 {
+
+
     public class Program
     {
+
+        public static Func<double, double> VolumenEsfera() => (radio) => 1.0 * Math.PI * Math.Pow(radio, 2);
+
+        public static Predicate<string> EsCapitular() => (cadena) => char.IsUpper(cadena.FirstOrDefault());
+
+        public static Func<string, Dictionary<string, int>> DiccionarioDePalabras() => frase => frase.Split(" ").ToHashSet().ToDictionary(palabra => palabra, palabra => palabra.Length);
+
 
         ///TODO: Implementa los métodos indicados en el enunciado
         public static void Main()

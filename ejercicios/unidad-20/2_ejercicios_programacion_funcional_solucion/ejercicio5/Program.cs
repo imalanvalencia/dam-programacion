@@ -11,19 +11,21 @@ namespace Ejercicio5
     public class Program
     {
         // Escribe un método AplicaIva, que devuelva un Delegado con el precio total de un producto, a partir de aplicar un IVA al precio inicial.
-       
+        public static Func<float, float, float> AplicaIva() => (iva, producto) => producto + (producto * iva / 100);
+
         // Escribe un método AplicaDescuento, que devuelva un Delegado con el precio total de un producto a partir de aplicar un descuento a un precio inicial.
-        
+        public static Func<float, float, float> AplicaDescuento() => (descuento, producto) => producto - (producto * descuento / 100);
+
 
         // Escribe un método CarritoCompra, que devuelva un Delegado con el precio total de una lista de la compra.
         // La lista de la compra se recibirá como una lista de tuplas o pares de valores
-        
+        public static Func<List<(float , float)>, Func<float, float, float>,float> CarritoCompra() => (lista, delegado) => lista.Sum(producto => delegado(producto.Item2, producto.Item1));
 
         public static void Main()
         {
 
             Console.WriteLine("Ejercicio 5. Carrito compra con Lambdas\n");
-            
+
             var calcularIva = AplicaIva();
             var calcularDescuento = AplicaDescuento();
 
@@ -40,7 +42,7 @@ namespace Ejercicio5
             };
 
             var procesarCarrito = CarritoCompra();
-            
+
             // Usando Descuentos
             // 10->9.9, 20->19.6, 30->29.1 => Total 58.6
             float totalDescuento = procesarCarrito(cesta, calcularDescuento);
