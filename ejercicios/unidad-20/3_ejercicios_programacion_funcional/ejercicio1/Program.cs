@@ -1,5 +1,6 @@
 ﻿
 using Ejercicio1;
+using BibliotecaExtensions;
 
 namespace Ejercicio1
 {
@@ -12,13 +13,7 @@ namespace Ejercicio1
         }
     }
 
-    public class BibliotecaException : Exception
-    {
-        public BibliotecaException(string message) : base(message)
-        {
-            ;
-        }
-    }
+    public class BibliotecaException(string message) : Exception(message);
 
     public record TituloAutor(string Titulo, string Autor);
     public class Biblioteca
@@ -68,7 +63,7 @@ namespace Ejercicio1
 
         public int CuentaLibrosConNumeroDePaginasMenorA(int num)
         {
-            return Libros.FindAll(l => l.NumPaginas < num).Count;
+            return Libros.FindAll(l => l.NumPaginas < num).Aggregate(0, (count, _) => count + 1);
         }
 
         public void EliminaPorAutor(string autor)
@@ -156,6 +151,7 @@ class Program
         Console.WriteLine(biblioteca.BuscaPorISBN("9788467023664"));
 
         Console.WriteLine(biblioteca.AutorTitulo("9788431533441"));
+
 
         Console.WriteLine("\nListado de ISBNs ordenados:");
         string[] isbns = biblioteca.ISBNS();

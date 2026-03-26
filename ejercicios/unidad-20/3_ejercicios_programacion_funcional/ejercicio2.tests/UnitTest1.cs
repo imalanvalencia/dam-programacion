@@ -31,7 +31,6 @@ namespace ejercicio2.tests
         [Fact]
         public void SumaElemParteEnteraMultiploDe3_SumaCorrectamente()
         {
-            // Enteros: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
             // Multiplos de 3 (excluyendo 0): 3, 6, 9.
             // Items: 3.9, 6.3, 9.2
             // Suma: 3.9 + 6.3 + 9.2 = 19.4

@@ -35,22 +35,35 @@ namespace Ejercicio
 
         public static int CuentaParteDecimalMenorA05(List<double> reales)
         {
-            return 0; //A completar
+            return reales
+                .Select(n => n % 1)
+                .Count(n => n < 0.5);
         }
 
         public static double SumaElemParteEnteraMultiploDe3(List<double> reales)
         {
-            return 0; //A completar
+            return reales
+                .GroupBy(n => (int)n, (pk, n) => new { pk, n })
+                .Where(g => g.pk != 0 && g.pk % 3 == 0)
+                .Sum(g => g.n.Sum()); //A completar
         }
 
         public static double MaximoCuyaParteDecimalMayorA05(List<double> reales)
         {
-            return 0; //A completar
+            return reales.Max(n => n % 1 > 0.5 ? n : 0); //A completar
         }
+
+
 
         public static List<double> ElementosParteEnteraEsPrimo(List<double> reales)
         {
-            return null; //A completar
+            return [.. reales
+                    .Where(n =>
+                            (int)n > 1 &&
+                            Enumerable.Range(2, (int)Math.Sqrt((int)n - 1)
+                            ).All(i => (int)n % i != 0) ||(int)n == 2
+                        )
+                    ]; //A completar
         }
 
     }

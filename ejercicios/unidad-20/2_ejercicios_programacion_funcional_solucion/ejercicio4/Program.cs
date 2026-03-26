@@ -17,7 +17,7 @@ namespace Ejercicio4
 
         public static Predicate<string> EsCapitular() => (cadena) => char.IsUpper(cadena.FirstOrDefault());
 
-        public static Func<string, Dictionary<string, int>> DiccionarioDePalabras() => frase => frase.Split(" ").ToHashSet().ToDictionary(palabra => palabra, palabra => palabra.Length);
+        public static Func<string, Dictionary<string, int>> DiccionarioDePalabras() => frase => frase.Split(" ").Distinct().ToDictionary(palabra => palabra, palabra => palabra.Length);
 
 
         ///TODO: Implementa los métodos indicados en el enunciado
