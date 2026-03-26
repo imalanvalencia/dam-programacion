@@ -105,9 +105,9 @@ namespace Ej5_ConsultasProductos
                 var consulta1 = Productos.Where(p => p.Precio >= 10 && p.Precio <= 30)
                                          .Select(p => new
                                          {
-                                             CodArticulo = p.CodArticulo,
-                                             Descripcion = p.Descripcion,
-                                             Precio = p.Precio
+                                             p.CodArticulo,
+                                             p.Descripcion,
+                                             p.Precio
                                          });
                 Console.WriteLine(string.Join("\n", consulta1));
 
@@ -116,28 +116,30 @@ namespace Ej5_ConsultasProductos
                     "Consulta 2: Usando las funciones Select, OrderByDescending y Take.\n" +
                     "Muestra CodArticulo, Descripcion y Precio de los 3 productos.\n" +
                     "más caros (ordenando por Precio descendente)\n");
-                var consulta2 = ; //A completar
+                var consulta2 = Productos.Select(p => new { p.CodArticulo, p.Descripcion, p.Precio }).OrderByDescending(p => p.Precio).Take(3); //A completar
                 Console.WriteLine(string.Join("\n", consulta2));
 
                 Console.WriteLine(SeparadorConsulta);
                 Console.WriteLine(
                     "Consulta 3: Usando las funciones GroupBy, OrderBy y First.\n" +
                     "Muestra el precio más barato por categoría\n");
-                var consulta3 =; //A completar
+                var consulta3 = Productos.GroupBy(p => p.Categoria, (c, p) => new { Categoria = c, PrecioMasBarato = p.OrderBy(p => p.Precio).First().Precio }); //A completar
                 Console.WriteLine(string.Join("\n", consulta3));
 
                 Console.WriteLine(SeparadorConsulta);
                 Console.WriteLine(
                     "Consulta 4: Usando las funciones GroupBy, Count.\n" +
                     "¿Cuántos productos hay de cada categoría?\n");
-                var consulta4 = ;//A completar
+                var consulta4 = Productos.GroupBy(p => p.Categoria, (c, p) => new { Categoria = c, TotalProductos = p.Count() });
                 Console.WriteLine(string.Join("\n", consulta4));
 
                 Console.WriteLine(SeparadorConsulta);
                 Console.WriteLine(
                     "Consulta 5: Usando las funciones GroupBy, Count, Where y Select\n" +
                     "Mostrar las categorías que tengan más de 2 productos\n");
-                var consulta5 = ;//A completar
+                var consulta5 = Productos.GroupBy(p => p.Categoria)
+                                         .Where(g => g.Count() > 2)
+                                         .Select(g => new { Categoria = g.Key, TotalProductos = g.Count() });
                 Console.WriteLine(string.Join("\n", consulta5));
 
                 Console.WriteLine(SeparadorConsulta);
@@ -145,7 +147,13 @@ namespace Ej5_ConsultasProductos
                     "Consulta 6: Usando la función Select\n" +
                     "Mostrar CodArticulo, Descripcion, Precio y Descuento redondeado a 2 decimales,\n" +
                     "siendo Descuento el 10% del Precio\n");
-                var consulta6 = ;//A completar
+                var consulta6 = Productos.Select(p => new
+                {
+                    p.CodArticulo,
+                    p.Descripcion,
+                    p.Precio,
+                    Descuento = Math.Round(p.Precio * 0.10, 2)
+                });
                 Console.WriteLine(string.Join("\n", consulta6));
 
                 Console.WriteLine(SeparadorConsulta);
@@ -154,7 +162,8 @@ namespace Ej5_ConsultasProductos
                     "Mostrar CodArticulo, Descripcion y Colores\n" +
                     "de los productos de color verde o rojo\n" +
                     "(es decir, que contengan alguno de los dos)\n");
-                var consulta7 = ;//A completar
+                var consulta7 = Productos.Where(p => p.Colores.Contains("verde") || p.Colores.Contains("rojo"))
+                                         .Select(p => new { p.CodArticulo, p.Descripcion, p.Colores });
                 Console.WriteLine(string.Join("\n", consulta7));
 
                 Console.WriteLine(SeparadorConsulta);
@@ -162,7 +171,8 @@ namespace Ej5_ConsultasProductos
                     "Consulta 8: Usando las funciones Where, Count y Select.\n" +
                     "Mostrar CodArticulo, Descripcion y Colores.\n" +
                     "de los productos que se fabrican en tres Colores\n");
-                var consulta8 = ;//A completar
+                var consulta8 = Productos.Where(p => p.Colores.Length == 3)
+                                         .Select(p => new { p.CodArticulo, p.Descripcion, p.Colores });
                 Console.WriteLine(string.Join("\n", consulta8));
 
                 Console.WriteLine(SeparadorConsulta);
@@ -170,14 +180,17 @@ namespace Ej5_ConsultasProductos
                     "Consulta 9: Usando las funciones Where, Select.\n" +
                     "Mostrar CodArticulo, Descripcion y Dimensiones\n" +
                     "de los productos con espesor de 3 cm\n");
-                var consulta9 = ;//A completar
+                var consulta9 = Productos.Where(p => p.Dimensiones.Espesor == 3)
+                                         .Select(p => new { p.CodArticulo, p.Descripcion, p.Dimensiones });
                 Console.WriteLine(string.Join("\n", consulta9));
 
                 Console.WriteLine(SeparadorConsulta);
                 Console.WriteLine(
                     "Consulta 10: Usando las funciones SelectMany, Distinct y OrderBy.\n" +
                     "Mostrar los colores de productos ordenados y sin repeticiones\n");
-                var consulta10 = ;//A completar
+                var consulta10 = Productos.SelectMany(p => p.Colores)
+                                          .Distinct()
+                                          .OrderBy(c => c);
                 Console.WriteLine(string.Join("\n", consulta10));
 
 
@@ -185,12 +198,15 @@ namespace Ej5_ConsultasProductos
                 Console.WriteLine(
                     "Consulta 11: Usando las funciones SelectMany, GroupBy, OrderByDescending.\n" +
                     "Mostrar TotalProductos que hay de cada Color ordenando de mayor a menor cantidad\n");
-                var consulta11 = ;//A completar
-                                          
+                var consulta11 = Productos.SelectMany(p => p.Colores)
+                                          .GroupBy(color => color)
+                                          .Select(g => new { Color = g.Key, TotalProductos = g.Count() })
+                                          .OrderByDescending(x => x.TotalProductos);
+
                 Console.WriteLine(string.Join("\n", consulta11));
 
                 Console.WriteLine("\nPulsa una tecla para finalizar...");
-              //  Console.ReadKey();
+                //  Console.ReadKey();
             }
         }
     }

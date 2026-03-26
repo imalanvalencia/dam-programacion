@@ -19,20 +19,36 @@ namespace Ejercicio3
 
             ///TODO: Completar el código del ejercicio aquí
             List<Pedido> pedidos = [
-                new(1, "a", [new("pan", 1), new("harina", 1), new("aceite", 1)]),
-                new(2, "b", [new("carbon", 1), new("perejil", 1), new("aceituna", 1)]),
-                new(3, "c", [new("perico", 1), new("arroz", 1), new("cafe", 1)])
+                new(1, "a", [new("Monitor", 2), new("Ratón", 1)]),
+                new(2, "b", [new("Teclado", 1)]),
+                new(3, "c", [new("Impresora", 1), new("Toner", 4)])
             ];
 
 
-            var resultado = pedidos.SelectMany(((int id, List<LineaPedido> lineasParam) pedido) =>
-        lineas.Select(linea => new
-        {
-            IdPedido = id,
-            linea.Producto,
-            linea.Cantidad
-        })
-    );
+            var pedidosAplanados = pedidos.SelectMany(pedido =>
+                pedido.Lineas.Select(linea => new
+                {
+                    IdPedido = pedido.Id,
+                    linea.Producto,
+                    linea.Cantidad
+                })
+            );
+
+            var pedidosAUD = pedidosAplanados.Zip(
+                Enumerable.Range(1,
+                pedidosAplanados.Count()).Select(n => $"AUD-{n:D3}"
+            ));
+
+            foreach (var pedido in pedidosAUD)
+            {
+                var (p, audId) = pedido;
+
+                Console.WriteLine($"{audId}: Pedido {p.IdPedido} - {p.Producto} ({p.Cantidad} uds)");
+            }
+
+
+
+
             Console.WriteLine("Pulsa una tecla para finalizar...");
             // Console.ReadKey();
         }
